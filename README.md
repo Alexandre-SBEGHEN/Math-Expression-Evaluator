@@ -3,6 +3,25 @@
 Ce programme permet de calculer une expression mathématique à partir 
 d'une string.
 
+## Contexte
+
+Cela fait déjà un moment que j'ai cette idée en tête, et j'ai finalement
+décidé de me lancer dans sa réalisation.
+
+Ayant déjà travaillé sur des concepts comme les **tokens**, le **parsing**
+et la construction d'un langage avec mon [Custom-ASM-Compiler](https://github.com/Alexandre-SBEGHEN/Custom-ASM-Compiler),
+je voulais aller plus loin dans cette direction.
+Cette expérience m'a notamment motivé à essayer de créer mon propre
+évaluateur d'expressions mathématiques.
+
+Cette réalisation a également plusieurs objectifs personnels :
+
+- Consolider mon niveau en Java en réalisant un projet suffisamment conséquent
+- Apprendre à écrire des tests de manière propre et systématique, toujours en
+appliquant la méthode [TDD](https://en.wikipedia.org/wiki/Test-driven_development)
+- Découvrir et utiliser Maven pour gérer le projet, ses dépendances et son
+cycle de compilation.
+
 ## Installation & tests
 
 Le guide d'installation peut être trouvé [ici](docs/INSTALL.md).
