@@ -3,7 +3,11 @@
 Ce programme permet de calculer une expression mathématique à partir 
 d'une string.
 
-## Étapes du calculateur
+## Installation & tests
+
+Le guide d'installation peut être trouvé [ici](docs/INSTALL.md).
+
+## Étapes de l'évaluateur
 
 ### 1. Grammaire
 
@@ -76,8 +80,9 @@ selon sa structure.
 
 ### 4. Evaluation de l'AST
 
-L'évaluation de l'*AST* consiste en un parcours [post-ordre](https://en.wikipedia.org/wiki/Tree_traversal) de ce dernier.
-L'algorithme en pseudo-code d'évaluation de l'*AST* est le suivant :
+L'évaluation de l'*AST* consiste en un [parcours](https://en.wikipedia.org/wiki/Tree_traversal) [post-ordre](https://en.wikipedia.org/wiki/Tree_traversal#Post-order,_LRN)
+de ce dernier.  L'algorithme en pseudo-code d'évaluation de l'*AST*
+est le suivant :
 
 ```
 évaluer(nœud):
@@ -101,8 +106,3 @@ les suivantes :
 - Syntaxe (ex: `3 +* 2`)
 - Opérande manquant (ex: `3 +`)
 - Division par 0
-
-
-## Installation & tests
-
-Le guide d'installation peut être trouvé [ici](docs/INSTALL.md).
