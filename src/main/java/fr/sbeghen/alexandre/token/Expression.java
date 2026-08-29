@@ -29,9 +29,9 @@ public class Expression {
     public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {
         ArrayList<Token> tokens = new ArrayList<>();
 
-        int parentheses = 0;
+        int parenthesesStack = 0;
 
-        boolean previousIsNumber = false;
+        String numberRegex = "\\d*\\.?\\d+";
         StringBuilder numberString = new StringBuilder();
 
         // Parcours des caractères
@@ -51,14 +51,14 @@ public class Expression {
                 numberString.append(c);
             } else {
                 // Vérifier si numberString représente un nombre
-                if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
+                if (!numberString.isEmpty() && !numberString.toString().matches(numberRegex))
                     throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
                 numberString.setLength(0);
 
                 if (isLeft) {
-                    ++parentheses;
+                    ++parenthesesStack;
                 } else if (isRight) {
-                    if (--parentheses < 0)
+                    if (--parenthesesStack < 0)
                         throw new BadParenthesesException("Closing a parenthesis before opening it");
                 } else if (isOperation) {
 
@@ -69,11 +69,11 @@ public class Expression {
         }
 
         // Vérifier le dernier nombre en cours de construction (s'il y en a un)
-        if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
+        if (!numberString.isEmpty() && !numberString.toString().matches(numberRegex))
             throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
 
         // Vérifier que le parenthésage est nul
-        if (parentheses != 0)
+        if (parenthesesStack != 0)
             throw new BadParenthesesException("Parentheses not closed");
 
         return tokens;
