@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
 import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
+import java.util.ArrayList;
 
 /**
  * Classe de test de Expression.
@@ -87,5 +88,49 @@ public class ExpressionTest {
     void tokenizeNoIllegalCharacters(String str) {
         Expression exp = new Expression(str);
         assertDoesNotThrow(exp::tokenize);
+    }
+
+    /* ----- Tests liés à la valeur de retour ------------------------------ */
+
+    /**
+     * Vérifie que l'expression '4 + 2 * 3' renvoie la bonne liste
+     * de tokens.
+     */
+    @Disabled
+    @Test
+    void tokenizeSimpleOperation() {
+        Expression exp = new Expression("4 + 2 * 3");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token(TokenType.NUMBER, 4.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.PLUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.TIMES.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 3.0));
+
+        assertArrayEquals(expectedTokens.toArray(), exp.tokenize().toArray());
+    }
+
+    /**
+     * Vérifie que l'expression '6 / 2 * (1 + 2)' renvoie la bonne liste
+     * de tokens.
+     */
+    @Disabled
+    @Test
+    void tokenizeOperationWithParentheses() {
+        Expression exp = new Expression("6 / 2 * (1 + 2)");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token(TokenType.NUMBER, 6.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.DIV.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.TIMES.ordinal()));
+        expectedTokens.add(new Token(TokenType.LEFT, 0.0));
+        expectedTokens.add(new Token(TokenType.NUMBER, 1.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.PLUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
+        expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
+
+        assertArrayEquals(expectedTokens.toArray(), exp.tokenize().toArray());
     }
 }
