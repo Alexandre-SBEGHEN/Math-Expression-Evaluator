@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
 import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
+import fr.sbeghen.alexandre.exceptions.BadNumberFormatException;
 import java.util.ArrayList;
 
 /**
@@ -90,6 +91,38 @@ public class ExpressionTest {
     @ParameterizedTest
     @ValueSource(strings = {"6/2*(1+2)", "1   +     4", "(3)*(    3    )"})
     void tokenizeNoIllegalCharacters(String str) {
+        Expression exp = new Expression(str);
+        assertDoesNotThrow(exp::tokenize, String.format("Failed with '%s'", str));
+    }
+
+    /**
+     * Vérifie que l'exception BadNumberFormatException est bien levée
+     * dans le cas où le nombre présent dans l'expression est dans
+     * le mauvais format.
+     *
+     * @param str Chaîne de l'expression à vérifier
+     *
+     * @see BadNumberFormatException
+     */
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(strings = {".", "0.", "..", "0..0", ".00."})
+    void tokenizeBadNumberFormat(String str) {
+        Expression exp = new Expression(str);
+        assertThrows(BadNumberFormatException.class, exp::tokenize, String.format("Failed with '%s'", str));
+    }
+
+    /**
+     * Vérifie qu'il n'y a pas d'exception levée dans le cas où
+     * où le nombre présent dans l'expression est dans le
+     * bon format.
+     *
+     * @param str Chaîne de l'expression à vérifier
+     */
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(strings = {"0", ".0", ".00", "00.0"})
+    void tokenizeGoodNumberFormat(String str) {
         Expression exp = new Expression(str);
         assertDoesNotThrow(exp::tokenize, String.format("Failed with '%s'", str));
     }
