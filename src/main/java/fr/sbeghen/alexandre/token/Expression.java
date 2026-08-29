@@ -1,8 +1,6 @@
 package fr.sbeghen.alexandre.token;
 
 import java.util.ArrayList;
-
-import fr.sbeghen.alexandre.exceptions.BadNumberFormatException;
 import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
 import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
 
@@ -54,7 +52,7 @@ public class Expression {
             } else {
                 // Vérifier si numberString représente un nombre
                 if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
-                    throw new BadNumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
+                    throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
                 numberString.setLength(0);
 
                 if (isLeft) {
@@ -72,7 +70,7 @@ public class Expression {
 
         // Vérifier le dernier nombre en cours de construction (s'il y en a un)
         if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
-            throw new BadNumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
+            throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
 
         // Vérifier que le parenthésage est nul
         if (parentheses != 0)
