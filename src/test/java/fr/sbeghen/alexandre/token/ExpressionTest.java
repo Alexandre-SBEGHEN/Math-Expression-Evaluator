@@ -103,7 +103,7 @@ public class ExpressionTest {
      *
      * @param str La chaîne sans expression
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    "})
     void tokenizeEmptyExpression(String str) {
