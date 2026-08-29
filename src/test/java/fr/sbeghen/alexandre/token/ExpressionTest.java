@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
 import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
-import fr.sbeghen.alexandre.exceptions.BadNumberFormatException;
+
 import java.util.ArrayList;
 
 /**
@@ -96,20 +96,20 @@ public class ExpressionTest {
     }
 
     /**
-     * Vérifie que l'exception BadNumberFormatException est bien levée
+     * Vérifie que l'exception NumberFormatException est bien levée
      * dans le cas où le nombre présent dans l'expression est dans
      * le mauvais format.
      *
      * @param str Chaîne de l'expression à vérifier
      *
-     * @see BadNumberFormatException
+     * @see NumberFormatException
      */
     // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"1 + .", "0.", "1 + ..", "0..0", ".00."})
     void tokenizeBadNumberFormat(String str) {
         Expression exp = new Expression(str);
-        assertThrows(BadNumberFormatException.class, exp::tokenize, String.format("Failed with '%s'", str));
+        assertThrows(NumberFormatException.class, exp::tokenize, String.format("Failed with '%s'", str));
     }
 
     /**
