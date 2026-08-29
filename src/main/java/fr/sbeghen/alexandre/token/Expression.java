@@ -33,24 +33,30 @@ public class Expression {
 
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
+            // Ignorer si c'est un caractère d'espacement
+            boolean isSpace = Character.isWhitespace(c);
+            if (isSpace)
+                continue;
+
             // Type de caractère
             boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
             boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
             boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
             boolean isNumber = TokenType.NUMBER.characters.indexOf(c) != -1;
-            boolean isSpace = c == ' ';
 
             if (isLeft) {
                 ++parentheses;
             } else if (isRight) {
                 if (--parentheses < 0)
                     throw new BadParenthesesException("Closing a parenthesis before opening it");
-            } else if (isOperation) {
-
             } else if (isNumber) {
 
-            } else if (!isSpace) {
-                throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
+            } else {
+                if (isOperation) {
+
+                } else {
+                    throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
+                }
             }
         }
 
