@@ -24,10 +24,41 @@ public class Expression {
      * @throws fr.sbeghen.alexandre.exceptions.BadParenthesesException Si l'expression
      * présente un mauvais parenthésage.
      * @throws fr.sbeghen.alexandre.exceptions.IllegalCharacterException Si l'expression
-     * contient un ou plusieurs caractères non reconnus.
+     * contient un ou plusieurs caractères invalides.
      */
     public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {
-        return null;
+        ArrayList<Token> tokens = new ArrayList<>();
+
+        int parentheses = 0;
+
+        // Parcours des caractères
+        for (char c: expression.toCharArray()) {
+            // Type de caractère
+            boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
+            boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
+            boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
+            boolean isNumber = TokenType.NUMBER.characters.indexOf(c) != -1;
+            boolean isSpace = c == ' ';
+
+            if (isLeft) {
+                ++parentheses;
+            } else if (isRight) {
+                if (--parentheses < 0)
+                    throw new BadParenthesesException("Closing a parenthesis before opening it");
+            } else if (isOperation) {
+
+            } else if (isNumber) {
+
+            } else if (!isSpace) {
+                throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
+            }
+        }
+
+        // Vérifier que le parenthésage est nul
+        if (parentheses != 0)
+            throw new BadParenthesesException("Parentheses not closed");
+
+        return tokens;
     }
 
     @Override

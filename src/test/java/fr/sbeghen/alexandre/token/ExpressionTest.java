@@ -35,12 +35,12 @@ public class ExpressionTest {
      *
      * @see BadParenthesesException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"(", ")", ")(", "(()", "())"})
     void tokenizeBadParentheses(String str) {
         Expression exp = new Expression(str);
-        assertThrows(BadParenthesesException.class, exp::tokenize);
+        assertThrows(BadParenthesesException.class, exp::tokenize, String.format("Failed with '%s'", str));
     }
 
     /**
@@ -49,12 +49,12 @@ public class ExpressionTest {
      *
      * @param str La chaîne de l'expression dont on vérifie le parenthésage.
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"", "()", "()()", "(())", "(()())"})
     void tokenizeGoodParentheses(String str) {
         Expression exp = new Expression(str);
-        assertDoesNotThrow(exp::tokenize);
+        assertDoesNotThrow(exp::tokenize, String.format("Failed with '%s'", str));
     }
 
     /**
@@ -69,12 +69,12 @@ public class ExpressionTest {
      *
      * @see IllegalCharacterException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"3 ° 2", "5 * a", "6 * [4 - (1 + 2)]"})
     void tokenizeIllegalCharacters(String str) {
         Expression exp = new Expression(str);
-        assertThrows(IllegalCharacterException.class, exp::tokenize);
+        assertThrows(IllegalCharacterException.class, exp::tokenize, String.format("Failed with '%s'", str));
     }
 
     /**
@@ -86,12 +86,12 @@ public class ExpressionTest {
      *
      * @param str La chaîne de l'expression dont on vérifie les caractères.
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"6/2*(1+2)", "1   +     4", "(3)*(    3    )"})
     void tokenizeNoIllegalCharacters(String str) {
         Expression exp = new Expression(str);
-        assertDoesNotThrow(exp::tokenize);
+        assertDoesNotThrow(exp::tokenize, String.format("Failed with '%s'", str));
     }
 
     /* ----- Valeur de retour ----- */
@@ -103,13 +103,13 @@ public class ExpressionTest {
      *
      * @param str La chaîne sans expression
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    "})
     void tokenizeEmptyExpression(String str) {
         Expression exp = new Expression(str);
 
-        assertTrue(exp.tokenize().isEmpty());
+        assertTrue(exp.tokenize().isEmpty(), String.format("Failed with '%s'", str));
     }
 
     /**
