@@ -20,7 +20,7 @@ Cette réalisation a également plusieurs objectifs personnels :
 - Apprendre à écrire des tests de manière propre et systématique, toujours en
 appliquant la méthode [TDD](https://en.wikipedia.org/wiki/Test-driven_development)
 - Découvrir et utiliser Maven pour gérer le projet, ses dépendances et son
-cycle de compilation.
+cycle de compilation
 
 ## Installation & tests
 
@@ -33,7 +33,7 @@ Le guide d'installation peut être trouvé [ici](docs/INSTALL.md).
 Définition des règles du « *langage d'expression* » : quels caractères et
 opérateurs sont autorisés. Cette section sert de référence pour les
 étapes suivantes. La vérification réelle se fera pendant la [tokénisation](#tokenisation) et
-le [parsing](#parsing)
+le [parsing](#parsing).
 
 - [ ] Définition des caractères autorisés (chiffres, opérateurs, parenthèses,
 etc)
@@ -51,7 +51,7 @@ exploitables, les tokens.
 
 - `"4 + 2 * 3"` → `( NUMBER, PLUS, NUMBER, TIMES, NUMBER )`
 - `6 / 2 (1 + 2)` → `( NUMBER, DIV, NUMBER, LEFT, NUMBER, PLUS, NUMBER,
-RIGHT)`
+RIGHT )`
 
 ### <a id="parsing"></a> 3. Parsing des tokens, construction de l'AST
 
