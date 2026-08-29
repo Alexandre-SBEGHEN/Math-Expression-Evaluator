@@ -1,6 +1,8 @@
 package fr.sbeghen.alexandre.token;
 
 import java.util.ArrayList;
+
+import fr.sbeghen.alexandre.exceptions.BadNumberFormatException;
 import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
 import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
 
@@ -31,6 +33,9 @@ public class Expression {
 
         int parentheses = 0;
 
+        boolean previousIsNumber = false;
+        StringBuilder numberString = new StringBuilder();
+
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
             // Ignorer si c'est un caractère d'espacement
@@ -42,23 +47,32 @@ public class Expression {
             boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
             boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
             boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
-            boolean isNumber = TokenType.NUMBER.characters.indexOf(c) != -1;
+            boolean isDigitOrDot = TokenType.NUMBER.characters.indexOf(c) != -1;
 
-            if (isLeft) {
-                ++parentheses;
-            } else if (isRight) {
-                if (--parentheses < 0)
-                    throw new BadParenthesesException("Closing a parenthesis before opening it");
-            } else if (isNumber) {
-
+            if (isDigitOrDot) {
+                numberString.append(c);
             } else {
-                if (isOperation) {
+                // Vérifier si numberString représente un nombre
+                if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
+                    throw new BadNumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
+                numberString.setLength(0);
+
+                if (isLeft) {
+                    ++parentheses;
+                } else if (isRight) {
+                    if (--parentheses < 0)
+                        throw new BadParenthesesException("Closing a parenthesis before opening it");
+                } else if (isOperation) {
 
                 } else {
                     throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
                 }
             }
         }
+
+        // Vérifier le dernier nombre en cours de construction (s'il y en a un)
+        if (!numberString.isEmpty() && !numberString.toString().matches("\\d*\\.?\\d+"))
+            throw new BadNumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
 
         // Vérifier que le parenthésage est nul
         if (parentheses != 0)

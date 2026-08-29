@@ -104,9 +104,9 @@ public class ExpressionTest {
      *
      * @see BadNumberFormatException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
-    @ValueSource(strings = {".", "0.", "..", "0..0", ".00."})
+    @ValueSource(strings = {"1 + .", "0.", "1 + ..", "0..0", ".00."})
     void tokenizeBadNumberFormat(String str) {
         Expression exp = new Expression(str);
         assertThrows(BadNumberFormatException.class, exp::tokenize, String.format("Failed with '%s'", str));
@@ -119,9 +119,9 @@ public class ExpressionTest {
      *
      * @param str Chaîne de l'expression à vérifier
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
-    @ValueSource(strings = {"0", ".0", ".00", "00.0"})
+    @ValueSource(strings = {"0", ".0 + 1", ".00", "00.0 + 1"})
     void tokenizeGoodNumberFormat(String str) {
         Expression exp = new Expression(str);
         assertDoesNotThrow(exp::tokenize, String.format("Failed with '%s'", str));
