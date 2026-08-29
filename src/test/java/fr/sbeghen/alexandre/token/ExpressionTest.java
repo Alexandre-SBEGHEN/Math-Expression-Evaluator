@@ -20,7 +20,11 @@ import java.util.ArrayList;
  */
 public class ExpressionTest {
 
-    /* ----- Tests liés aux exceptions ------------------------------------- */
+    /*
+     * ----------------------- Tests de tokenize() ----------------------------
+     */
+
+    /* ----- Exceptions ----- */
 
     /**
      * Vérifie que l'exception BadParenthesesException est bien levée
@@ -90,7 +94,7 @@ public class ExpressionTest {
         assertDoesNotThrow(exp::tokenize);
     }
 
-    /* ----- Tests liés à la valeur de retour ------------------------------ */
+    /* ----- Valeur de retour ----- */
 
     /**
      * Vérifie que l'expression '4 + 2 * 3' renvoie la bonne liste
