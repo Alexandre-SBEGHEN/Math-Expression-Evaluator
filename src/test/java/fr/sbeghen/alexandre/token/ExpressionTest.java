@@ -97,6 +97,54 @@ public class ExpressionTest {
     /* ----- Valeur de retour ----- */
 
     /**
+     * Vérifie qu'une chaîne sans expression mathématique
+     * (chaîne vide OU caractères d'espacement uniquement)
+     * renvoie une liste vide.
+     *
+     * @param str La chaîne sans expression
+     */
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    "})
+    void tokenizeEmptyExpression(String str) {
+        Expression exp = new Expression(str);
+
+        assertTrue(exp.tokenize().isEmpty());
+    }
+
+    /**
+     * Vérifie qu'une chaîne contenant une expression avec un nombre
+     * entier écrit avec des espaces au milieu renvoit une liste
+     * avec seulement ce nombre.
+     */
+    @Disabled
+    @Test
+    void tokenizeOnlyAnIntNumber() {
+        Expression exp = new Expression("6 7");
+
+        ArrayList<Token> expectedToken = new ArrayList<>();
+        expectedToken.add(new Token(TokenType.NUMBER, 67.0));
+
+        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+    }
+
+    /**
+     * Vérifie qu'une chaîne contenant une expression avec un nombre
+     * décimal écrit avec des espaces au milieu renvoit une liste
+     * avec seulement ce nombre.
+     */
+    @Disabled
+    @Test
+    void tokenizeOnlyADecimalNumber() {
+        Expression exp = new Expression("9 .    5");
+
+        ArrayList<Token> expectedToken = new ArrayList<>();
+        expectedToken.add(new Token(TokenType.NUMBER, 9.5));
+
+        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+    }
+
+    /**
      * Vérifie que l'expression '4 + 2 * 3' renvoie la bonne liste
      * de tokens.
      */
