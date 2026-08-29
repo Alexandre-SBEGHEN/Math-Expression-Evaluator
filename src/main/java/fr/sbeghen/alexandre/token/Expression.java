@@ -27,7 +27,23 @@ public class Expression {
      * contient un ou plusieurs caractères invalides.
      */
     public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {
-        return null;
+        ArrayList<Token> tokens = new ArrayList<>();
+
+        int parentheses = 0;
+
+        // Parcours des caractères
+        for (char c: expression.toCharArray()) {
+            if (c == '(')
+                ++parentheses;
+            else if (c == ')' && --parentheses < 0)
+                throw new BadParenthesesException("Closing a parenthesis before opening it");
+        }
+
+        // Vérifier que le parenthésage est nul
+        if (parentheses != 0)
+            throw new BadParenthesesException("Parentheses not closed");
+
+        return tokens;
     }
 
     @Override

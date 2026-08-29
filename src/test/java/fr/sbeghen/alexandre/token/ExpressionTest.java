@@ -35,7 +35,7 @@ public class ExpressionTest {
      *
      * @see BadParenthesesException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"(", ")", ")(", "(()", "())"})
     void tokenizeBadParentheses(String str) {
@@ -49,7 +49,7 @@ public class ExpressionTest {
      *
      * @param str La chaîne de l'expression dont on vérifie le parenthésage.
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"", "()", "()()", "(())", "(()())"})
     void tokenizeGoodParentheses(String str) {
