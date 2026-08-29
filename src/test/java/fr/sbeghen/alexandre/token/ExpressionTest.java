@@ -145,6 +145,22 @@ public class ExpressionTest {
     }
 
     /**
+     * Vérifie qu'une chaîne contenant une expression avec un nombre
+     * décimal commençant par le point (ex: .5 au lieu de 0.5) renvoit
+     * le bon nombre.
+     */
+    @Disabled
+    @Test
+    void tokenizeDecimalStartingWithDecimalPoint() {
+        Expression exp = new Expression(".25");
+
+        ArrayList<Token> expectedToken = new ArrayList<>();
+        expectedToken.add(new Token(TokenType.NUMBER, 0.25));
+
+        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+    }
+
+    /**
      * Vérifie que l'expression '4 + 2 * 3' renvoie la bonne liste
      * de tokens.
      */
