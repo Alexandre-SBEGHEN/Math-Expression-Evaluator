@@ -33,10 +33,25 @@ public class Expression {
 
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
-            if (c == '(')
+            // Type de caractère
+            boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
+            boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
+            boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
+            boolean isNumber = TokenType.NUMBER.characters.indexOf(c) != -1;
+            boolean isSpace = c == ' ';
+
+            if (isLeft) {
                 ++parentheses;
-            else if (c == ')' && --parentheses < 0)
-                throw new BadParenthesesException("Closing a parenthesis before opening it");
+            } else if (isRight) {
+                if (--parentheses < 0)
+                    throw new BadParenthesesException("Closing a parenthesis before opening it");
+            } else if (isOperation) {
+
+            } else if (isNumber) {
+
+            } else if (!isSpace) {
+                throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
+            }
         }
 
         // Vérifier que le parenthésage est nul
