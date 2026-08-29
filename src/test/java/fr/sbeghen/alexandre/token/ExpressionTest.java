@@ -69,7 +69,7 @@ public class ExpressionTest {
      *
      * @see IllegalCharacterException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"3 ° 2", "5 * a", "6 * [4 - (1 + 2)]"})
     void tokenizeIllegalCharacters(String str) {
@@ -86,7 +86,7 @@ public class ExpressionTest {
      *
      * @param str La chaîne de l'expression dont on vérifie les caractères.
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"6/2*(1+2)", "1   +     4", "(3)*(    3    )"})
     void tokenizeNoIllegalCharacters(String str) {
