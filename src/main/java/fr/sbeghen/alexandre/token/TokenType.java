@@ -6,15 +6,11 @@ package fr.sbeghen.alexandre.token;
  * @see Token
  */
 public enum TokenType {
-    /** Parenthèse ouvrante '(' */
-    LEFT,
+    LEFT("("),
+    RIGHT(")"),
+    OPERATION("+-*/"),
+    NUMBER("0123456789.");
 
-    /** Parenthèse fermante ')' */
-    RIGHT,
-
-    /** Opération (+-* etc) */
-    OPERATION,
-
-    /** Nombre réel */
-    NUMBER
+    public final String characters;
+    TokenType(String characters) { this.characters = characters; }
 }
