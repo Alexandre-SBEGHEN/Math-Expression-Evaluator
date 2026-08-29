@@ -50,7 +50,7 @@ exploitables, les tokens.
 #### Exemples
 
 - `"4 + 2 * 3"` → `( NUMBER, PLUS, NUMBER, TIMES, NUMBER )`
-- `6 / 2 (1 + 2)` → `( NUMBER, DIV, NUMBER, LEFT, NUMBER, PLUS, NUMBER,
+- `6 / 2 * (1 + 2)` → `( NUMBER, DIV, NUMBER, LEFT, NUMBER, PLUS, NUMBER,
 RIGHT )`
 
 ### <a id="parsing"></a> 3. Parsing des tokens, construction de l'AST
