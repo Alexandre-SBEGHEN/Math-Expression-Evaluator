@@ -24,7 +24,7 @@ public class Expression {
      * @throws fr.sbeghen.alexandre.exceptions.BadParenthesesException Si l'expression
      * présente un mauvais parenthésage.
      * @throws fr.sbeghen.alexandre.exceptions.IllegalCharacterException Si l'expression
-     * contient un ou plusieurs caractères non reconnus.
+     * contient un ou plusieurs caractères invalides.
      */
     public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {
         return null;
