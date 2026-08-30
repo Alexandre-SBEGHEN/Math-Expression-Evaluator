@@ -1,12 +1,11 @@
 package fr.sbeghen.alexandre.token;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
-import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
-import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
+import fr.sbeghen.alexandre.exception.BadParenthesesException;
+import fr.sbeghen.alexandre.exception.IllegalCharacterException;
 
 import java.util.ArrayList;
 
