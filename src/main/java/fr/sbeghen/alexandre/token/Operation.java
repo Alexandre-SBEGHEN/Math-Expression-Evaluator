@@ -12,12 +12,19 @@ public enum Operation {
     public final char character;
     Operation(char character) { this.character = character; }
 
-    public static Operation fromChar(char c) {
-        for (Operation op: values()) {
-            if (op.character == c) {
+    /**
+     * Permet d'obtenir la valeur de l'enum associé au
+     * caractère d'une opération.
+     *
+     * @param opChar Caractère de l'opération.
+     * @return La valeur de l'enum.
+     *
+     * @throws IllegalArgumentException Si un caractère invalide est entré.
+     */
+    public static Operation fromChar(char opChar) {
+        for (Operation op: values())
+            if (op.character == opChar)
                 return op;
-            }
-        }
-        throw new IllegalArgumentException(String.format("Invalid operator : '%c'", c));
+        throw new IllegalArgumentException(String.format("Invalid operator : '%c'", opChar));
     }
 }
