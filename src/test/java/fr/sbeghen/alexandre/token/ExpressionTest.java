@@ -2,6 +2,7 @@ package fr.sbeghen.alexandre.token;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 import fr.sbeghen.alexandre.exception.BadParenthesesException;
@@ -148,14 +149,23 @@ public class ExpressionTest {
      * Vérifie qu'une chaîne contenant une expression avec un nombre
      * entier écrit avec des espaces au milieu renvoit une liste
      * avec seulement ce nombre.
+     *
+     * @param expressionStr La chaîne de l'expression.
+     * @param expectedNumber Le nombre attendu.
      */
     // @Disabled
-    @Test
-    void tokenizeOnlyAnIntNumber() {
-        Expression exp = new Expression("6 7");
+    @ParameterizedTest
+    @CsvSource({
+            "6 7, 67.0",
+            "1 2    3, 123.0",
+            " 000 00   , 0.0",
+            "0010, 10.0"
+    })
+    void tokenizeOnlyAnIntNumber(String expressionStr, double expectedNumber) {
+        Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
-        expectedToken.add(new Token(TokenType.NUMBER, 67.0));
+        expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
         assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
     }
@@ -164,14 +174,23 @@ public class ExpressionTest {
      * Vérifie qu'une chaîne contenant une expression avec un nombre
      * décimal écrit avec des espaces au milieu renvoit une liste
      * avec seulement ce nombre.
+     *
+     * @param expressionStr La chaîne de l'expression.
+     * @param expectedNumber Le nombre attendu.
      */
     // @Disabled
-    @Test
-    void tokenizeOnlyADecimalNumber() {
-        Expression exp = new Expression("9 .    5");
+    @ParameterizedTest
+    @CsvSource({
+            "9 .    5, 9.5",
+            "00.0125, 0.0125",
+            ".00, 0.0",
+            "1.0000, 1.0"
+    })
+    void tokenizeOnlyADecimalNumber(String expressionStr, double expectedNumber) {
+        Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
-        expectedToken.add(new Token(TokenType.NUMBER, 9.5));
+        expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
         assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
     }
@@ -180,14 +199,22 @@ public class ExpressionTest {
      * Vérifie qu'une chaîne contenant une expression avec un nombre
      * décimal commençant par le point (ex: .5 au lieu de 0.5) renvoit
      * le bon nombre.
+     *
+     * @param expressionStr La chaîne de l'expression.
+     * @param expectedNumber Le nombre attendu.
      */
     // @Disabled
-    @Test
-    void tokenizeDecimalStartingWithDecimalPoint() {
-        Expression exp = new Expression(".25");
+    @ParameterizedTest
+    @CsvSource({
+            ".25, 0.25",
+            ".0, 0.0",
+            ".0000, 0.0"
+    })
+    void tokenizeDecimalStartingWithDecimalPoint(String expressionStr, double expectedNumber) {
+        Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
-        expectedToken.add(new Token(TokenType.NUMBER, 0.25));
+        expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
         assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
     }
