@@ -31,8 +31,26 @@ public class Expression {
 
         int parenthesesStack = 0;
 
-        String numberRegex = "\\d*\\.?\\d+";
+        // String du nombre lu (concaténations successives)
         StringBuilder numberString = new StringBuilder();
+        Runnable numberStringCheckMatchOrThrow = () -> {
+            if (!numberString.toString().matches("\\d*\\.?\\d+"))
+                throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString));
+        }; // Vérification regex, sinon NumberFormatException
+        Runnable numberStringParseAndAddToTokens = () -> {
+            double number = Double.parseDouble(numberString.toString());
+            tokens.add(new Token(TokenType.NUMBER, number));
+        }; // Conversion en double et création + ajout du token
+        Runnable numberStringClear = () -> {
+            numberString.setLength(0);
+        }; // Vider le stringBuilder
+        Runnable numberStringCheckAndParseAndClear = () -> {
+            if (!numberString.isEmpty()) {
+                numberStringCheckMatchOrThrow.run();
+                numberStringParseAndAddToTokens.run();
+                numberStringClear.run();
+            }
+        }; // Vérification + Conversion + Vidage
 
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
@@ -47,20 +65,11 @@ public class Expression {
             boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
             boolean isDigitOrDot = TokenType.NUMBER.characters.indexOf(c) != -1;
 
+            // Ajout des tokens
             if (isDigitOrDot) {
                 numberString.append(c);
             } else {
-                if (!numberString.isEmpty()) {
-                    // Vérifier si numberString représente un nombre
-                    if (!numberString.toString().matches(numberRegex))
-                        throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString));
-
-                    // Convertir en nombre
-                    double number = Double.parseDouble(numberString.toString());
-                    tokens.add(new Token(TokenType.NUMBER, number));
-
-                    numberString.setLength(0);
-                }
+                numberStringCheckAndParseAndClear.run();
 
                 if (isLeft) {
                     ++parenthesesStack;
@@ -78,18 +87,8 @@ public class Expression {
             }
         }
 
-        // Dernière conversion
-        if (!numberString.isEmpty()) {
-            // Vérifier le dernier nombre en cours de construction (s'il y en a un)
-            if (!numberString.toString().matches(numberRegex))
-                throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString));
-
-            // Convertir en nombre
-            double number = Double.parseDouble(numberString.toString());
-            tokens.add(new Token(TokenType.NUMBER, number));
-
-            numberString.setLength(0);
-        }
+        // Dernière conversion en nombre si nécessaire
+        numberStringCheckAndParseAndClear.run();
 
         // Vérifier que le parenthésage est nul
         if (parenthesesStack != 0)
