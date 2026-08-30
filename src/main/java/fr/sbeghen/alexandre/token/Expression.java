@@ -50,27 +50,46 @@ public class Expression {
             if (isDigitOrDot) {
                 numberString.append(c);
             } else {
-                // Vérifier si numberString représente un nombre
-                if (!numberString.isEmpty() && !numberString.toString().matches(numberRegex))
-                    throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
-                numberString.setLength(0);
+                if (!numberString.isEmpty()) {
+                    // Vérifier si numberString représente un nombre
+                    if (!numberString.toString().matches(numberRegex))
+                        throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString));
+
+                    // Convertir en nombre
+                    double number = Double.parseDouble(numberString.toString());
+                    tokens.add(new Token(TokenType.NUMBER, number));
+
+                    numberString.setLength(0);
+                }
 
                 if (isLeft) {
                     ++parenthesesStack;
+                    tokens.add(new Token(TokenType.LEFT, 0.0));
                 } else if (isRight) {
                     if (--parenthesesStack < 0)
                         throw new BadParenthesesException("Closing a parenthesis before opening it");
+                    tokens.add(new Token(TokenType.RIGHT, 0.0));
                 } else if (isOperation) {
-
+                    Operation operation = Operation.fromChar(c);
+                    tokens.add(new Token(TokenType.OPERATION, operation.ordinal()));
                 } else {
                     throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
                 }
             }
         }
 
-        // Vérifier le dernier nombre en cours de construction (s'il y en a un)
-        if (!numberString.isEmpty() && !numberString.toString().matches(numberRegex))
-            throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString.toString()));
+        // Dernière conversion
+        if (!numberString.isEmpty()) {
+            // Vérifier le dernier nombre en cours de construction (s'il y en a un)
+            if (!numberString.toString().matches(numberRegex))
+                throw new NumberFormatException(String.format("'%s' does not correspond to a number", numberString));
+
+            // Convertir en nombre
+            double number = Double.parseDouble(numberString.toString());
+            tokens.add(new Token(TokenType.NUMBER, number));
+
+            numberString.setLength(0);
+        }
 
         // Vérifier que le parenthésage est nul
         if (parenthesesStack != 0)
