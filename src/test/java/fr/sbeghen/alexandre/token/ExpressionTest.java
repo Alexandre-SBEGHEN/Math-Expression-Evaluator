@@ -167,7 +167,16 @@ public class ExpressionTest {
         ArrayList<Token> expectedToken = new ArrayList<>();
         expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
-        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+        assertArrayEquals(
+                expectedToken.toArray(),
+                exp.tokenize().toArray(),
+                String.format(
+                        "Failed with '%s', expected %f, got %f",
+                        expressionStr,
+                        expectedNumber,
+                        exp.tokenize().getFirst().value()
+                )
+        );
     }
 
     /**
@@ -192,7 +201,16 @@ public class ExpressionTest {
         ArrayList<Token> expectedToken = new ArrayList<>();
         expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
-        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+        assertArrayEquals(
+                expectedToken.toArray(),
+                exp.tokenize().toArray(),
+                String.format(
+                        "Failed with '%s', expected %f, got %f",
+                        expressionStr,
+                        expectedNumber,
+                        exp.tokenize().getFirst().value()
+                )
+        );
     }
 
     /**
@@ -216,7 +234,16 @@ public class ExpressionTest {
         ArrayList<Token> expectedToken = new ArrayList<>();
         expectedToken.add(new Token(TokenType.NUMBER, expectedNumber));
 
-        assertArrayEquals(expectedToken.toArray(), exp.tokenize().toArray());
+        assertArrayEquals(
+                expectedToken.toArray(),
+                exp.tokenize().toArray(),
+                String.format(
+                        "Failed with '%s', expected %f, got %f",
+                        expressionStr,
+                        expectedNumber,
+                        exp.tokenize().getFirst().value()
+                )
+        );
     }
 
     /**
@@ -235,7 +262,11 @@ public class ExpressionTest {
         expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.TIMES.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 3.0));
 
-        assertArrayEquals(expectedTokens.toArray(), exp.tokenize().toArray());
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
     }
 
     /**
@@ -258,6 +289,10 @@ public class ExpressionTest {
         expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
 
-        assertArrayEquals(expectedTokens.toArray(), exp.tokenize().toArray());
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
     }
 }
