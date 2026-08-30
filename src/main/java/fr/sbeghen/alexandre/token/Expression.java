@@ -1,8 +1,8 @@
 package fr.sbeghen.alexandre.token;
 
 import java.util.ArrayList;
-import fr.sbeghen.alexandre.exceptions.BadParenthesesException;
-import fr.sbeghen.alexandre.exceptions.IllegalCharacterException;
+import fr.sbeghen.alexandre.exception.BadParenthesesException;
+import fr.sbeghen.alexandre.exception.IllegalCharacterException;
 
 /**
  * Représente une expression mathématique sous la forme de chaîne de caractères.
@@ -21,9 +21,9 @@ public class Expression {
      *
      * @return La liste des tokens.
      *
-     * @throws fr.sbeghen.alexandre.exceptions.BadParenthesesException Si l'expression
+     * @throws BadParenthesesException Si l'expression
      * présente un mauvais parenthésage.
-     * @throws fr.sbeghen.alexandre.exceptions.IllegalCharacterException Si l'expression
+     * @throws IllegalCharacterException Si l'expression
      * contient un ou plusieurs caractères invalides.
      */
     public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {

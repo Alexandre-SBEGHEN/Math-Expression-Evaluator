@@ -1,4 +1,4 @@
-package fr.sbeghen.alexandre.exceptions;
+package fr.sbeghen.alexandre.exception;
 
 /**
  * Exception qui a lieu lorsqu'une expression mathématique
