@@ -150,7 +150,7 @@ public class ExpressionTest {
      * entier écrit avec des espaces au milieu renvoit une liste
      * avec seulement ce nombre.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeOnlyAnIntNumber() {
         Expression exp = new Expression("6 7");
@@ -166,7 +166,7 @@ public class ExpressionTest {
      * décimal écrit avec des espaces au milieu renvoit une liste
      * avec seulement ce nombre.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeOnlyADecimalNumber() {
         Expression exp = new Expression("9 .    5");
@@ -182,7 +182,7 @@ public class ExpressionTest {
      * décimal commençant par le point (ex: .5 au lieu de 0.5) renvoit
      * le bon nombre.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeDecimalStartingWithDecimalPoint() {
         Expression exp = new Expression(".25");
@@ -197,7 +197,7 @@ public class ExpressionTest {
      * Vérifie que l'expression '4 + 2 * 3' renvoie la bonne liste
      * de tokens.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeSimpleOperation() {
         Expression exp = new Expression("4 + 2 * 3");
@@ -216,7 +216,7 @@ public class ExpressionTest {
      * Vérifie que l'expression '6 / 2 * (1 + 2)' renvoie la bonne liste
      * de tokens.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeOperationWithParentheses() {
         Expression exp = new Expression("6 / 2 * (1 + 2)");
