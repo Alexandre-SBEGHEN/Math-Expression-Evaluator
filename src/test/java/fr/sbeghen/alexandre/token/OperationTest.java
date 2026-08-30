@@ -24,13 +24,13 @@ public class OperationTest {
      * est bien levée dans le cas où un caractère
      * invalide est entré.
      *
-     * @param c Caractère invalide à vérifier.
+     * @param opChar Caractère invalide à vérifier.
      */
     // @Disabled
     @ParameterizedTest
     @ValueSource(chars = {'a', '@', '=', '°'})
-    void fromCharInvalid(char c) {
-        assertThrows(IllegalArgumentException.class, () -> Operation.fromChar(c));
+    void fromCharInvalid(char opChar) {
+        assertThrows(IllegalArgumentException.class, () -> Operation.fromChar(opChar));
     }
 
     /**
@@ -38,8 +38,8 @@ public class OperationTest {
      * où un caractère valide est entré, et vérifie que la bonne
      * valeur de l'enum est obtenue.
      *
-     * @param c Caractère valide à vérifier.
-     * @param expected Valeur de l'enum attendue.
+     * @param opChar Caractère valide à vérifier.
+     * @param expectedOp Valeur de l'enum attendue.
      *
      */
     // @Disabled
@@ -50,8 +50,8 @@ public class OperationTest {
             "*, TIMES",
             "/, DIV"
     })
-    void fromCharValid(char c, Operation expected) {
-        assertDoesNotThrow(() -> Operation.fromChar(c));
-        assertEquals(expected, Operation.fromChar(c));
+    void fromCharValid(char opChar, Operation expectedOp) {
+        assertDoesNotThrow(() -> Operation.fromChar(opChar));
+        assertEquals(expectedOp, Operation.fromChar(opChar));
     }
 }
