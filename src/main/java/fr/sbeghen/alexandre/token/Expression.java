@@ -54,37 +54,46 @@ public class Expression {
 
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
-            // Ignorer si c'est un caractère d'espacement
+            // Caractère espacement -> ignorer
             boolean isSpace = Character.isWhitespace(c);
             if (isSpace)
                 continue;
 
-            // Type de caractère
-            boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
-            boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
-            boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
+            // Digit -> ajouter au numberString, SINON -> parser numberString
             boolean isDigitOrDot = TokenType.NUMBER.characters.indexOf(c) != -1;
-
-            // Ajout des tokens
             if (isDigitOrDot) {
                 numberString.append(c);
-            } else {
-                numberStringCheckAndParseAndClear.run();
-
-                if (isLeft) {
-                    ++parenthesesStack;
-                    tokens.add(new Token(TokenType.LEFT, 0.0));
-                } else if (isRight) {
-                    if (--parenthesesStack < 0)
-                        throw new BadParenthesesException("Closing a parenthesis before opening it");
-                    tokens.add(new Token(TokenType.RIGHT, 0.0));
-                } else if (isOperation) {
-                    Operation operation = Operation.fromChar(c);
-                    tokens.add(new Token(TokenType.OPERATION, operation.ordinal()));
-                } else {
-                    throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
-                }
+                continue;
             }
+            numberStringCheckAndParseAndClear.run();
+
+            // '(' -> empiler
+            boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
+            if (isLeft) {
+                ++parenthesesStack;
+                tokens.add(new Token(TokenType.LEFT, 0.0));
+                continue;
+            }
+
+            // ')' -> dépiler
+            boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
+            if (isRight) {
+                if (--parenthesesStack < 0)
+                    throw new BadParenthesesException("Closing a parenthesis before opening it");
+                tokens.add(new Token(TokenType.RIGHT, 0.0));
+                continue;
+            }
+
+            // Opération
+            boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
+            if (isOperation) {
+                Operation operation = Operation.fromChar(c);
+                tokens.add(new Token(TokenType.OPERATION, operation.ordinal()));
+                continue;
+            }
+
+            // Aucun des cas ci-dessus -> IllegalCharacterException
+            throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
         }
 
         // Dernière conversion en nombre si nécessaire
