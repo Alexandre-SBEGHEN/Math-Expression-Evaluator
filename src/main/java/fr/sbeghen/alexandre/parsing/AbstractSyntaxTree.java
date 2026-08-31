@@ -69,7 +69,16 @@ public class AbstractSyntaxTree {
      * et que le diviseur (second opérande) est nul.
      */
     public static double applyOperation(Operation operation, double a, double b) {
-        return 0;
+        return switch (operation) {
+            case PLUS -> a + b;
+            case MINUS -> a - b;
+            case TIMES -> a * b;
+            case DIV -> {
+                if (b == 0)
+                    throw new DivisionByZeroException(String.format("Tried to divide %f by 0", a));
+                yield a / b;
+            }
+        };
     }
 
     /**

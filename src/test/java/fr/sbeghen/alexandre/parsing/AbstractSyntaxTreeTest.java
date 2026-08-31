@@ -38,7 +38,7 @@ public class AbstractSyntaxTreeTest {
      *
      * @see DivisionByZeroException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void applyOperationDivisionByZero(double dividend) {
@@ -56,7 +56,7 @@ public class AbstractSyntaxTreeTest {
      * @param dividend Dividende
      * @param divisor Diviseur (non nul)
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @CsvSource({
             "0.0, 1.0",
@@ -81,7 +81,7 @@ public class AbstractSyntaxTreeTest {
      * @param b Second opérande.
      * @param expectedResult Résultat attendu.
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @CsvSource({
             "4.6, PLUS, 62.4, 67.0",
