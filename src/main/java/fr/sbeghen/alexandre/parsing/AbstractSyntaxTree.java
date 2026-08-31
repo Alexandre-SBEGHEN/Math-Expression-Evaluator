@@ -19,15 +19,15 @@ import fr.sbeghen.alexandre.tokenization.Token;
  */
 public class AbstractSyntaxTree {
     private final Token node;
-    private final Token left;
-    private final Token right;
+    private final AbstractSyntaxTree left;
+    private final AbstractSyntaxTree right;
 
     /**
      * Premier constructeur de l'<i>AST</i>.
      * <p>
      * Il possède une racine ainsi que <strong>deux</strong> enfants gauche et droit.
      */
-    public AbstractSyntaxTree(Token node, Token left, Token right) {
+    public AbstractSyntaxTree(Token node, AbstractSyntaxTree left, AbstractSyntaxTree right) {
         this.node = node;
         this.left = left;
         this.right = right;
@@ -37,7 +37,7 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine ainsi qu'<strong>un seul</strong> enfant qui est le gauche.
      */
-    public AbstractSyntaxTree(Token node, Token left) {
+    public AbstractSyntaxTree(Token node, AbstractSyntaxTree left) {
         this.node = node;
         this.left = left;
         right = null;
@@ -54,8 +54,8 @@ public class AbstractSyntaxTree {
     }
 
     public Token getNode() { return node; }
-    public Token getLeft() { return left; }
-    public Token getRight() { return right; }
+    public AbstractSyntaxTree getLeft() { return left; }
+    public AbstractSyntaxTree getRight() { return right; }
 
     /**
      * Applique une opération entre un ou deux opérandes.
@@ -80,6 +80,9 @@ public class AbstractSyntaxTree {
      *
      * @param node Le nœud de départ
      * @return Le résultat de l'évaluation.
+     *
+     * @throws DivisionByZeroException Si une division
+     * par zéro survient.
      */
     public double evaluate(AbstractSyntaxTree node) {
         return 0;
@@ -91,6 +94,9 @@ public class AbstractSyntaxTree {
      * par le nœud lui-même.
      *
      * @return Le résultat de l'évaluation.
+     *
+     * @throws DivisionByZeroException Si une division
+     * par zéro survient.
      *
      * @see evaluate(AbstractSyntaxTree)
      */
