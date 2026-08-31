@@ -24,6 +24,47 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AbstractSyntaxTreeTest {
 
     /*
+     * ---------------------- Tests de applyOperation() ------------------------
+     */
+
+    /* ----- Exceptions ----- */
+
+    /**
+     * Vérifie que DivisionByZeroException est bien
+     * levée dans le cas où l'opération est une
+     * division et le diviseur est nul.
+     *
+     * @param dividend Dividende quelconque
+     *
+     * @see DivisionByZeroException
+     */
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(doubles = {0.0, 1.0, 6.7})
+    void applyOperationDivisionByZero(double dividend) {
+        assertThrows(DivisionByZeroException.class, () -> AbstractSyntaxTree.applyOperation(Operation.DIV, dividend, 0));
+    }
+
+    /**
+     * Vérifie qu'il n'y a pas d'exception levée
+     * dans le cas où l'opération est une division
+     * et le diviseur est non nul.
+     *
+     * @param dividend Dividende
+     * @param divisor Diviseur (non nul)
+     */
+    @Disabled
+    @ParameterizedTest
+    @CsvSource({
+            "0.0, 1.0",
+            "1.0, 1.1",
+            "10.0, 2.0"
+    })
+    void applyOperationDivisionNotByZero(double dividend, double divisor) {
+        assertDoesNotThrow(() -> AbstractSyntaxTree.applyOperation(Operation.DIV, dividend, divisor));
+    }
+
+    /*
      * ------------------------- Tests de evaluate() --------------------------
      */
 
@@ -71,6 +112,6 @@ public class AbstractSyntaxTreeTest {
                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, divisor))
         );
-        assertDoesNotThrow(() -> ast.evaluate());
+        assertDoesNotThrow(ast::evaluate);
     }
 }
