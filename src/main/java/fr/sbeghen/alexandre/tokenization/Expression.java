@@ -1,4 +1,4 @@
-package fr.sbeghen.alexandre.token;
+package fr.sbeghen.alexandre.tokenization;
 
 import java.util.ArrayList;
 import fr.sbeghen.alexandre.exception.BadParenthesesException;
@@ -40,7 +40,7 @@ public class Expression {
         Runnable numberStringParseAndAddToTokens = () -> {
             double number = Double.parseDouble(numberString.toString());
             tokens.add(new Token(TokenType.NUMBER, number));
-        }; // Conversion en double et création + ajout du token
+        }; // Conversion en double et création + ajout du tokenization
         Runnable numberStringClear = () -> {
             numberString.setLength(0);
         }; // Vider le stringBuilder

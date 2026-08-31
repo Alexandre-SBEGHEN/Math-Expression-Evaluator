@@ -1,4 +1,4 @@
-package fr.sbeghen.alexandre.token;
+package fr.sbeghen.alexandre.tokenization;
 
 /**
  * Représente les opérations arithmétiques supportées par l'évaluateur.

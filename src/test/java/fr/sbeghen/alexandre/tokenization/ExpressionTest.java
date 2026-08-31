@@ -1,4 +1,4 @@
-package fr.sbeghen.alexandre.token;
+package fr.sbeghen.alexandre.tokenization;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

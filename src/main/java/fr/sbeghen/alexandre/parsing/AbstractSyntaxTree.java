@@ -1,6 +1,6 @@
 package fr.sbeghen.alexandre.parsing;
 
-import fr.sbeghen.alexandre.token.Token;
+import fr.sbeghen.alexandre.tokenization.Token;
 
 /**
  * Arbre binaire de l'expression mathématique.
