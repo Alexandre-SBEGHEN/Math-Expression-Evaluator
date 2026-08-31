@@ -90,6 +90,12 @@ public class AbstractSyntaxTree {
      * par zéro survient.
      */
     public double evaluate() {
-        return 0;
+        if (left == null && right == null)
+            return node.value();
+
+        double leftVal = left.evaluate();
+        double rightVal = right.evaluate();
+        Operation operation = Operation.values()[(int) node.value()];
+        return applyOperation(operation, leftVal, rightVal);
     }
 }

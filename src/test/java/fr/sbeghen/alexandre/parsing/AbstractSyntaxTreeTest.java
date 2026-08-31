@@ -111,7 +111,7 @@ public class AbstractSyntaxTreeTest {
      *
      * @see DivisionByZeroException
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void evaluateDivisionByZero(double dividend) {
@@ -134,7 +134,7 @@ public class AbstractSyntaxTreeTest {
      * @param dividend Dividende
      * @param divisor Diviseur (non nul)
      */
-    @Disabled
+    // @Disabled
     @ParameterizedTest
     @CsvSource({
             "0.0, 1.0",
@@ -167,7 +167,7 @@ public class AbstractSyntaxTreeTest {
      * </code></pre>
      * renvoie bien le résultat <code>10</code>.
      */
-    @Disabled
+    // @Disabled
     @Test
     void evaluateValidFourPlusTwoTimesThree() {
         AbstractSyntaxTree ast = new AbstractSyntaxTree(
@@ -197,7 +197,7 @@ public class AbstractSyntaxTreeTest {
      * </code></pre>
      * renvoie bien le résultat <code>18</code>.
      */
-    @Disabled
+    // @Disabled
     @Test
     void evaluateValidFourPlusTwoThenTimesThree() {
         AbstractSyntaxTree ast = new AbstractSyntaxTree(
