@@ -136,4 +136,66 @@ public class AbstractSyntaxTreeTest {
         );
         assertDoesNotThrow(ast::evaluate);
     }
+
+    /* ----- Valeur de retour ----- */
+
+    /**
+     * Vérifie que l'évaluation de l'AST suivant :
+     * <pre><code>
+     *       +
+     *      / \
+     *     4   *
+     *        / \
+     *       2   3
+     * </code></pre>
+     * représentant l'opération suivante :
+     * <pre><code>
+     *     4 + 2 * 3
+     * </code></pre>
+     * renvoie bien le résultat <code>10</code>.
+     */
+    @Disabled
+    @Test
+    void evaluateValidFourPlusTwoTimesThree() {
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0)),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, (double) Operation.TIMES.ordinal()),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0)),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                )
+        );
+        assertEquals(10, ast.evaluate());
+    }
+
+    /**
+     * Vérifie que l'évaluation de l'AST suivant :
+     * <pre><code>
+     *         *
+     *        / \
+     *       +   3
+     *      / \
+     *     4   2
+     * </code></pre>
+     * représentant l'opération suivante :
+     * <pre><code>
+     *     (4 + 2) * 3
+     * </code></pre>
+     * renvoie bien le résultat <code>18</code>.
+     */
+    @Disabled
+    @Test
+    void evaluateValidFourPlusTwoThenTimesThree() {
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, (double) Operation.TIMES.ordinal()),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0)),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                ),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+        );
+        assertEquals(18, ast.evaluate());
+    }
 }
