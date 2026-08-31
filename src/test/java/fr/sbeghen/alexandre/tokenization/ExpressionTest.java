@@ -1,5 +1,6 @@
 package fr.sbeghen.alexandre.tokenization;
 
+import fr.sbeghen.alexandre.exception.ExpressionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -139,7 +140,7 @@ public class ExpressionTest {
     // @Disabled
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    "})
-    void tokenizeEmptyExpression(String str) {
+    void tokenizeEmptyExpression(String str) throws ExpressionException {
         Expression exp = new Expression(str);
 
         assertTrue(exp.tokenize().isEmpty(), String.format("Failed with '%s'", str));
@@ -161,7 +162,7 @@ public class ExpressionTest {
             " 000 00   , 0.0",
             "0010, 10.0"
     })
-    void tokenizeOnlyAnIntNumber(String expressionStr, double expectedNumber) {
+    void tokenizeOnlyAnIntNumber(String expressionStr, double expectedNumber) throws ExpressionException {
         Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
@@ -195,7 +196,7 @@ public class ExpressionTest {
             ".00, 0.0",
             "1.0000, 1.0"
     })
-    void tokenizeOnlyADecimalNumber(String expressionStr, double expectedNumber) {
+    void tokenizeOnlyADecimalNumber(String expressionStr, double expectedNumber) throws ExpressionException {
         Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
@@ -228,7 +229,7 @@ public class ExpressionTest {
             ".0, 0.0",
             ".0000, 0.0"
     })
-    void tokenizeDecimalStartingWithDecimalPoint(String expressionStr, double expectedNumber) {
+    void tokenizeDecimalStartingWithDecimalPoint(String expressionStr, double expectedNumber) throws ExpressionException {
         Expression exp = new Expression(expressionStr);
 
         ArrayList<Token> expectedToken = new ArrayList<>();
@@ -252,7 +253,7 @@ public class ExpressionTest {
      */
     // @Disabled
     @Test
-    void tokenizeSimpleOperation() {
+    void tokenizeSimpleOperation() throws ExpressionException {
         Expression exp = new Expression("4 + 2 * 3");
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
@@ -275,7 +276,7 @@ public class ExpressionTest {
      */
     // @Disabled
     @Test
-    void tokenizeOperationWithParentheses() {
+    void tokenizeOperationWithParentheses() throws ExpressionException {
         Expression exp = new Expression("6 / 2 * (1 + 2)");
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
