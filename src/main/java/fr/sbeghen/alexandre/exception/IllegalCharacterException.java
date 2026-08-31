@@ -13,4 +13,7 @@ public class IllegalCharacterException extends ExpressionException {
     public IllegalCharacterException(String message) {
         super(message);
     }
+    public IllegalCharacterException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
