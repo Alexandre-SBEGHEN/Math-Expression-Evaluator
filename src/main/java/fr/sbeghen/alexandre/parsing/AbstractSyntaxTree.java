@@ -68,7 +68,7 @@ public class AbstractSyntaxTree {
      * @throws DivisionByZeroException Si l'opération est une division,
      * et que le diviseur (second opérande) est nul.
      */
-    public double applyOperation(Operation operation, double a, double b) {
+    public static double applyOperation(Operation operation, double a, double b) {
         return 0;
     }
 
