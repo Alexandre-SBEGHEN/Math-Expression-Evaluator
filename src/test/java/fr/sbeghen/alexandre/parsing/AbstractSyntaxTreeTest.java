@@ -106,7 +106,7 @@ public class AbstractSyntaxTreeTest {
             "1.0, 1.1",
             "10.0, 2.0"
     })
-    void devaluateDivisionNotByZero(double dividend, double divisor) {
+    void evaluateDivisionNotByZero(double dividend, double divisor) {
         AbstractSyntaxTree ast = new AbstractSyntaxTree(
                 new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
