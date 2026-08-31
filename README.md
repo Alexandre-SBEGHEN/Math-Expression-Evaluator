@@ -1,6 +1,6 @@
-<h1 style="text-align: center">Math Expression Evaluator</h1>
+<h1 align="center">Math Expression Evaluator</h1>
 
-<div style="display: flex; justify-content: center; gap: 6pt; flex-wrap: wrap">
+<div align="center">
    <img src="https://img.shields.io/github/license/Alexandre-SBEGHEN/Math-Expression-Evaluator" alt="License">
    <img src="https://img.shields.io/github/repo-size/Alexandre-SBEGHEN/Math-Expression-Evaluator" alt="Repo Size">
    <img src="https://www.codefactor.io/repository/github/alexandre-sbeghen/math-expression-evaluator/badge" alt="CodeFactor">
