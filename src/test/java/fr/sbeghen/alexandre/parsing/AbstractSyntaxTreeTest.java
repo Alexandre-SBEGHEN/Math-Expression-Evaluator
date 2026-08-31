@@ -1,6 +1,10 @@
 package fr.sbeghen.alexandre.parsing;
 
+import fr.sbeghen.alexandre.exception.DivisionByZeroException;
 import fr.sbeghen.alexandre.tokenization.Expression;
+import fr.sbeghen.alexandre.tokenization.Operation;
+import fr.sbeghen.alexandre.tokenization.Token;
+import fr.sbeghen.alexandre.tokenization.TokenType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,11 +22,55 @@ import static org.junit.jupiter.api.Assertions.*;
  * @see AbstractSyntaxTree
  */
 public class AbstractSyntaxTreeTest {
+
     /*
-     * ----------------------- Tests de evaluate() ----------------------------
+     * ------------------------- Tests de evaluate() --------------------------
      */
 
     /* ----- Exceptions ----- */
 
+    /**
+     * Vérifie que DivisionByZeroException est bien
+     * levée dans le cas où le parsing effectue une
+     * division qui est invalide (diviseur nul).
+     *
+     * @param dividend Dividende quelconque
+     *
+     * @see DivisionByZeroException
+     */
+    @Disabled
+    @ParameterizedTest
+    @ValueSource(doubles = {0.0, 1.0, 6.7})
+    void evaluateDivisionByZero(double dividend) {
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 0.0))
+        );
+        assertThrows(DivisionByZeroException.class, ast::evaluate);
+    }
 
+    /**
+     * Vérifie qu'il n'y a pas d'exception levée
+     * dans le cas où le parsing effectue division
+     * qui est valide (diviseur non nul).
+     *
+     * @param dividend Dividende
+     * @param divisor Diviseur (non nul)
+     */
+    @Disabled
+    @ParameterizedTest
+    @CsvSource({
+            "0.0, 1.0",
+            "1.0, 1.1",
+            "10.0, 2.0"
+    })
+    void devaluateDivisionNotByZero(double dividend, double divisor) {
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, divisor))
+        );
+        assertDoesNotThrow(() -> ast.evaluate());
+    }
 }
