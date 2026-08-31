@@ -2,6 +2,7 @@ package fr.sbeghen.alexandre.tokenization;
 
 import java.util.ArrayList;
 import fr.sbeghen.alexandre.exception.BadParenthesesException;
+import fr.sbeghen.alexandre.exception.ExpressionException;
 import fr.sbeghen.alexandre.exception.IllegalCharacterException;
 
 /**
@@ -26,7 +27,7 @@ public class Expression {
      * @throws IllegalCharacterException Si l'expression
      * contient un ou plusieurs caractères invalides.
      */
-    public ArrayList<Token> tokenize() throws BadParenthesesException, IllegalCharacterException {
+    public ArrayList<Token> tokenize() throws ExpressionException {
         ArrayList<Token> tokens = new ArrayList<>();
 
         int parenthesesStack = 0;
