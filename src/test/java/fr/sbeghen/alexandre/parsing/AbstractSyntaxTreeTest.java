@@ -64,6 +64,28 @@ public class AbstractSyntaxTreeTest {
         assertDoesNotThrow(() -> AbstractSyntaxTree.applyOperation(Operation.DIV, dividend, divisor));
     }
 
+    /* ----- Valeur de retour ----- */
+
+    /**
+     * Vérifie si le résultat des opérations
+     * correspond avec le résultat attendu.
+     *
+     * @param a Premier opérande.
+     * @param operation Opération à effectuer.
+     * @param b Second opérande.
+     * @param expectedResult Résultat attendu.
+     */
+    @ParameterizedTest
+    @CsvSource({
+            "4.6, PLUS, 62.4, 67.0",
+            "70.0, MINUS, 3.0, 67.0",
+            "3.0, TIMES, 3.0, 9.0",
+            "5.0, DIV, 2.0, 2.5"
+    })
+    void applyOperationTest(double a, Operation operation, double b, double expectedResult) {
+        assertEquals(expectedResult, AbstractSyntaxTree.applyOperation(operation, a, b));
+    }
+
     /*
      * ------------------------- Tests de evaluate() --------------------------
      */
