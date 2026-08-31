@@ -1,6 +1,6 @@
 package fr.sbeghen.alexandre;
 
-import fr.sbeghen.alexandre.token.*;
+import fr.sbeghen.alexandre.tokenization.*;
 import java.util.ArrayList;
 
 /**

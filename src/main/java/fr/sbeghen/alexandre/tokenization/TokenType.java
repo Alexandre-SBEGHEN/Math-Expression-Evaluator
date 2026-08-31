@@ -1,7 +1,7 @@
-package fr.sbeghen.alexandre.token;
+package fr.sbeghen.alexandre.tokenization;
 
 /**
- * Représente les différents types qu'un token peut prendre.
+ * Représente les différents types qu'un tokenization peut prendre.
  *
  * @see Token
  */
