@@ -5,15 +5,20 @@ import fr.sbeghen.alexandre.tokenization.Operation;
 import fr.sbeghen.alexandre.tokenization.Token;
 
 /**
+ * <i>Abstract Syntax Tree</i>.
+ * <p>
  * Arbre binaire de l'expression mathématique.
- * Possède une racine, ainsi que d'éventuels enfants
- * gauche et droit.
+ * Possède un nœud qui représente sa racine, ainsi
+ * que d'éventuels enfants gauche et droit.
+ * <p>
+ * Les enfants gauche et droits sont des sous-<i>AST</i>
+ * dont ils sont la racine.
  * <p>
  * Contient également les méthodes permettant
  * l'évaluation de cet arbre.
  */
 public class AbstractSyntaxTree {
-    private final Token root;
+    private final Token node;
     private final Token left;
     private final Token right;
 
@@ -22,8 +27,8 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine ainsi que <strong>deux</strong> enfants gauche et droit.
      */
-    public AbstractSyntaxTree(Token root, Token left, Token right) {
-        this.root = root;
+    public AbstractSyntaxTree(Token node, Token left, Token right) {
+        this.node = node;
         this.left = left;
         this.right = right;
     }
@@ -32,8 +37,8 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine ainsi qu'<strong>un seul</strong> enfant qui est le gauche.
      */
-    public AbstractSyntaxTree(Token root, Token left) {
-        this.root = root;
+    public AbstractSyntaxTree(Token node, Token left) {
+        this.node = node;
         this.left = left;
         right = null;
     }
@@ -42,13 +47,13 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine et <strong>aucun</strong> enfant.
      */
-    public AbstractSyntaxTree(Token root) {
-        this.root = root;
+    public AbstractSyntaxTree(Token node) {
+        this.node = node;
         left = null;
         right = null;
     }
 
-    public Token getRoot() { return root; }
+    public Token getNode() { return node; }
     public Token getLeft() { return left; }
     public Token getRight() { return right; }
 
