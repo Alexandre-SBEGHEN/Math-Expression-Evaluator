@@ -74,33 +74,13 @@ public class AbstractSyntaxTree {
 
     /**
      * Fonction résursive d'évaluation d'un <i>AST</i>.
-     * <p>
-     * Celle-ci prend en paramètre le nœud par lequel
-     * commencer la récursion.
-     *
-     * @param node Le nœud de départ
-     * @return Le résultat de l'évaluation.
-     *
-     * @throws DivisionByZeroException Si une division
-     * par zéro survient.
-     */
-    public double evaluate(AbstractSyntaxTree node) {
-        return 0;
-    }
-    /**
-     * Fonction résursive d'évaluation d'un <i>AST</i>.
-     * <p>
-     * Signature sans paramètre, on commence donc
-     * par le nœud lui-même.
      *
      * @return Le résultat de l'évaluation.
      *
      * @throws DivisionByZeroException Si une division
      * par zéro survient.
-     *
-     * @see evaluate(AbstractSyntaxTree)
      */
     public double evaluate() {
-        return evaluate(this);
+        return 0;
     }
 }
