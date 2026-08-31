@@ -31,7 +31,7 @@ public class AbstractSyntaxTreeTest {
 
     /**
      * Vérifie que DivisionByZeroException est bien
-     * levée dans le cas où le parsing effectue une
+     * levée dans le cas où le parcours mène à une
      * division qui est invalide (diviseur nul).
      *
      * @param dividend Dividende quelconque
@@ -52,7 +52,7 @@ public class AbstractSyntaxTreeTest {
 
     /**
      * Vérifie qu'il n'y a pas d'exception levée
-     * dans le cas où le parsing effectue division
+     * dans le cas où le parcours mène à une division
      * qui est valide (diviseur non nul).
      *
      * @param dividend Dividende
