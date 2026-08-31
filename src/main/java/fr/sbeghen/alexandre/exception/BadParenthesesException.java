@@ -12,4 +12,7 @@ public class BadParenthesesException extends ExpressionException {
     public BadParenthesesException(String message) {
         super(message);
     }
+    public BadParenthesesException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
