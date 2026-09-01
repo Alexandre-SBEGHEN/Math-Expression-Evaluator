@@ -298,6 +298,8 @@ public class ExpressionTest {
         );
     }
 
+    /* ----- Moins unaire / binaire ----- */
+
     /**
      * Vérifie que l'expression <code>5-5</code> renvoie dans
      * la liste, un token qui correspond au moins binaire.
@@ -310,6 +312,26 @@ public class ExpressionTest {
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
+
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
+    }
+
+    /**
+     * Vérifie que l'expression <code>-5</code> renvoie dans
+     * la liste, un token qui correspond au moins unaire.
+     */
+    @Disabled
+    @Test
+    void tokenizeMinusFive() throws ExpressionException {
+        Expression exp = new Expression("-5");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
