@@ -319,7 +319,7 @@ public class AbstractSyntaxTreeTest {
      * </code></pre>
      * renvoie bien le résultat <code>5.5</code>.
      */
-    @Disabled
+    // @Disabled
     @Test
     void evaluateComplexAst() {
         AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
