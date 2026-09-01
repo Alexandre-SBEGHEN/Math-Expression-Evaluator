@@ -1,9 +1,13 @@
 package fr.sbeghen.alexandre.tokenization;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import fr.sbeghen.alexandre.exception.BadParenthesesException;
 import fr.sbeghen.alexandre.exception.ExpressionException;
 import fr.sbeghen.alexandre.exception.IllegalCharacterException;
+
+import javax.crypto.spec.OAEPParameterSpec;
 
 /**
  * Représente une expression mathématique sous la forme de chaîne de caractères.
@@ -31,6 +35,7 @@ public class Expression {
         ArrayList<Token> tokens = new ArrayList<>();
 
         int parenthesesStack = 0;
+        AtomicBoolean canUseUnaryMinus = new AtomicBoolean(true);
 
         // String du nombre lu (concaténations successives)
         StringBuilder numberString = new StringBuilder();
@@ -50,17 +55,18 @@ public class Expression {
                 numberStringCheckMatchOrThrow.run();
                 numberStringParseAndAddToTokens.run();
                 numberStringClear.run();
+                canUseUnaryMinus.set(false);
             }
         }; // Vérification + Conversion + Vidage
 
         // Parcours des caractères
         for (char c: expression.toCharArray()) {
-            // Caractère espacement -> ignorer
+            // Caractère espacement → ignorer
             boolean isSpace = Character.isWhitespace(c);
             if (isSpace)
                 continue;
 
-            // Digit -> ajouter au numberString, SINON -> parser numberString
+            // Digit → ajouter au numberString, SINON → parser numberString
             boolean isDigitOrDot = TokenType.NUMBER.characters.indexOf(c) != -1;
             if (isDigitOrDot) {
                 numberString.append(c);
@@ -68,7 +74,7 @@ public class Expression {
             }
             numberStringCheckAndParseAndClear.run();
 
-            // '(' -> empiler
+            // '(' → empiler
             boolean isLeft = TokenType.LEFT.characters.indexOf(c) != -1;
             if (isLeft) {
                 ++parenthesesStack;
@@ -76,7 +82,7 @@ public class Expression {
                 continue;
             }
 
-            // ')' -> dépiler
+            // ')' → dépiler
             boolean isRight = TokenType.RIGHT.characters.indexOf(c) != -1;
             if (isRight) {
                 if (--parenthesesStack < 0)
@@ -89,11 +95,17 @@ public class Expression {
             boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
             if (isOperation) {
                 Operation operation = Operation.fromChar(c);
+                if (operation == Operation.MINUS) {
+                    if (canUseUnaryMinus.get())
+                        operation = Operation.MINUS_UNARY;
+                    canUseUnaryMinus.set(true);
+                }
+
                 tokens.add(new Token(TokenType.OPERATION, operation.ordinal()));
                 continue;
             }
 
-            // Aucun des cas ci-dessus -> IllegalCharacterException
+            // Aucun des cas ci-dessus → IllegalCharacterException
             throw new IllegalCharacterException(String.format("Illegal character : '%c'", c));
         }
 
