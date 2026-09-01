@@ -283,7 +283,7 @@ public class AbstractSyntaxTreeTest {
      */
     // @Disabled
     @Test
-    void evaluateValidFourPlusTwoTimesThree() {
+    void evaluateSimpleAst() {
         AbstractSyntaxTree ast = new AbstractSyntaxTree(
                 new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0)),
@@ -299,30 +299,53 @@ public class AbstractSyntaxTreeTest {
     /**
      * Vérifie que l'évaluation de l'AST suivant :
      * <pre><code>
-     *         *
-     *        / \
-     *       +   3
-     *      / \
-     *     4   2
+     *             -
+     *            / \
+     *           /   \
+     *          /     \
+     *         /       \
+     *        /         \
+     *       +           *
+     *      / \         / \
+     *     ÷   1       -   3
+     *    / \         /
+     *   -   4       2
+     *  /
+     * 6
      * </code></pre>
      * représentant l'opération suivante :
      * <pre><code>
-     *     (4 + 2) * 3
+     *     -6 / 4 + 1 --2 * 3
      * </code></pre>
-     * renvoie bien le résultat <code>18</code>.
+     * renvoie bien le résultat <code>5.5</code>.
      */
-    // @Disabled
+    @Disabled
     @Test
-    void evaluateValidFourPlusTwoThenTimesThree() {
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(
-                new Token(TokenType.OPERATION, (double) Operation.TIMES.ordinal()),
+    void evaluateComplexAst() {
+        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
                 new AbstractSyntaxTree(
-                        new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0)),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new AbstractSyntaxTree(
+                                new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                                new AbstractSyntaxTree(
+                                        new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
+                                ),
+                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
+                        ),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0))
                 ),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
+                        new AbstractSyntaxTree(
+                                new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                        ),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                )
         );
-        assertEquals(18, ast.evaluate());
+        assertEquals(5.5, expectedAst.evaluate());
     }
+
 }
