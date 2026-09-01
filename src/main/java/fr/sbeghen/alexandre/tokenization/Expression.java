@@ -2,12 +2,9 @@ package fr.sbeghen.alexandre.tokenization;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import fr.sbeghen.alexandre.exception.BadParenthesesException;
 import fr.sbeghen.alexandre.exception.ExpressionException;
 import fr.sbeghen.alexandre.exception.IllegalCharacterException;
-
-import javax.crypto.spec.OAEPParameterSpec;
 
 /**
  * Représente une expression mathématique sous la forme de chaîne de caractères.
