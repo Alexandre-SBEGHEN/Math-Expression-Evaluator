@@ -5,7 +5,8 @@ package fr.sbeghen.alexandre.tokenization;
  */
 public enum Operation {
     PLUS('+'),
-    MINUS('-'),
+    MINUS('-'), // Moins binaire (a - b)
+    MINUS_UNARY('-'), // Moins unaire (-a)
     TIMES('*'),
     DIV('/');
 
@@ -15,6 +16,11 @@ public enum Operation {
     /**
      * Permet d'obtenir la valeur de l'enum associé au
      * caractère d'une opération.
+     * <p>
+     * <strong>Note :</strong> Etant donné que le caractère '-'
+     * correspond à deux opérations à la fois (moins unaire / moins binaire),
+     * cette méthode renverra par défaut le moins binaire
+     * s'il est passé en paramètre.
      *
      * @param opChar Caractère de l'opération.
      * @return La valeur de l'enum.
