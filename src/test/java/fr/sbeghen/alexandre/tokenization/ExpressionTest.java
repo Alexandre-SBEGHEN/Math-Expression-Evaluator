@@ -1,6 +1,7 @@
 package fr.sbeghen.alexandre.tokenization;
 
 import fr.sbeghen.alexandre.exception.ExpressionException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -289,6 +290,26 @@ public class ExpressionTest {
         expectedTokens.add(new Token(TokenType.OPERATION, (double)Operation.PLUS.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
+
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
+    }
+
+    /**
+     * Vérifie que l'expression '-5' renvoie un token
+     * qui correspond au moins unaire, suivi d'un token
+     * qui correspond au nombre 5.
+     */
+    @Disabled
+    @Test
+    void tokenizeFiveMinusFive() throws ExpressionException {
+        Expression exp = new Expression("-5");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        // expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
 
         assertArrayEquals(
                 expectedTokens.toArray(),
