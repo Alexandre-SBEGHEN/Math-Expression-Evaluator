@@ -111,8 +111,8 @@ public class AbstractSyntaxTree {
         if (left == null && right == null)
             return node.value();
 
-        double leftVal = left.evaluate();
-        double rightVal = right.evaluate();
+        double leftVal = (left != null) ? left.evaluate() : 1;
+        double rightVal = (right != null) ? right.evaluate() : 1;
         Operation operation = Operation.values()[(int) node.value()];
         return applyOperation(operation, leftVal, rightVal);
     }
