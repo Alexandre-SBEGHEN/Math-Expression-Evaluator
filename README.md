@@ -1,10 +1,19 @@
 <h1 align="center">Math Expression Evaluator</h1>
 
+<h5 align="center">par Alexandre SBEGHEN</h6>
+
 <div align="center">
-   <img src="https://img.shields.io/github/license/Alexandre-SBEGHEN/Math-Expression-Evaluator" alt="License">
-   <img src="https://img.shields.io/github/repo-size/Alexandre-SBEGHEN/Math-Expression-Evaluator" alt="Repo Size">
-   <img src="https://www.codefactor.io/repository/github/alexandre-sbeghen/math-expression-evaluator/badge" alt="CodeFactor">
-   <img src="https://github.com/Alexandre-SBEGHEN/Math-Expression-Evaluator/actions/workflows/maven.yml/badge.svg" alt="Maven status badge">
+   <img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white" >
+   <img alt="Maven" src="https://img.shields.io/badge/Maven-CA4E3F?style=flat" >
+   <img alt="IntelliJ" src="https://img.shields.io/badge/IntelliJ-0091F9?style=flat&logo=intellij-idea&logoColor=white" >
+   <img alt="Github Actions" src="https://img.shields.io/badge/Github_Actions-249AF9?style=flat&logo=githubactions&logoColor=white" >
+</div>
+
+<div align="center">
+   <img alt="License" src="https://img.shields.io/github/license/Alexandre-SBEGHEN/Math-Expression-Evaluator">
+   <img alt="Repo Size" src="https://img.shields.io/github/repo-size/Alexandre-SBEGHEN/Math-Expression-Evaluator">
+   <img alt="CodeFactor" src="https://www.codefactor.io/repository/github/alexandre-sbeghen/math-expression-evaluator/badge" >
+   <img alt="Maven status badge" src="https://github.com/Alexandre-SBEGHEN/Math-Expression-Evaluator/actions/workflows/maven.yml/badge.svg" >
 </div>
 
 ---
