@@ -72,6 +72,7 @@ public class AbstractSyntaxTree {
         return switch (operation) {
             case PLUS -> a + b;
             case MINUS -> a - b;
+            case MINUS_UNARY -> -a;
             case TIMES -> a * b;
             case DIV -> {
                 if (b == 0)
