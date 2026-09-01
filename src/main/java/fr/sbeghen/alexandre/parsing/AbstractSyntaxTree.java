@@ -3,6 +3,7 @@ package fr.sbeghen.alexandre.parsing;
 import fr.sbeghen.alexandre.exception.DivisionByZeroException;
 import fr.sbeghen.alexandre.tokenization.Operation;
 import fr.sbeghen.alexandre.tokenization.Token;
+import java.util.ArrayList;
 
 /**
  * <i>Abstract Syntax Tree</i>.
@@ -18,6 +19,17 @@ import fr.sbeghen.alexandre.tokenization.Token;
  * l'évaluation de cet arbre.
  */
 public class AbstractSyntaxTree {
+    /**
+     * Construit un <i>AST</i> représentant l'expression
+     * mathématique.
+     *
+     * @param tokens La liste des tokens.
+     * @return L'arbre de l'expression.
+     */
+    public static AbstractSyntaxTree constructFromTokens(ArrayList<Token> tokens) {
+        return null;
+    }
+
     private final Token node;
     private final AbstractSyntaxTree left;
     private final AbstractSyntaxTree right;
