@@ -340,4 +340,55 @@ public class ExpressionTest {
                 String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
         );
     }
+
+    /**
+     * Vérifie que l'expression <code>5--5</code> renvoie dans
+     * la liste, un premier token qui correspond au moins binaire,
+     * puis un second <code>-</code> qui est un moins unaire.
+     */
+    @Disabled
+    @Test
+    void tokenizeFiveMinusMinusFive() throws ExpressionException {
+        Expression exp = new Expression("5--5");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
+
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
+    }
+
+    /**
+     * Vérifie que l'expression <code>(5)--(-5)</code> renvoie dans
+     * la liste, un premier token qui correspond au moins binaire,
+     * puis tous les autre <code>-</code> sont des moins unaires.
+     */
+    @Disabled
+    @Test
+    void tokenizeFiveMinusMinusMinusFive() throws ExpressionException {
+        Expression exp = new Expression("(5)--(-5)");
+
+        ArrayList<Token> expectedTokens = new ArrayList<>();
+        expectedTokens.add(new Token(TokenType.LEFT, 0.0));
+        expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
+        expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.LEFT, 0.0));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
+        expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
+
+        assertArrayEquals(
+                expectedTokens.toArray(),
+                exp.tokenize().toArray(),
+                String.format("Expected %s, got %s", expectedTokens.toString(), exp.tokenize())
+        );
+    }
 }
