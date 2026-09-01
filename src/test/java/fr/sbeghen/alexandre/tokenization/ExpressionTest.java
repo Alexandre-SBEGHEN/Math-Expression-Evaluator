@@ -304,7 +304,7 @@ public class ExpressionTest {
      * Vérifie que l'expression <code>5-5</code> renvoie dans
      * la liste, un token qui correspond au moins binaire.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeFiveMinusFive() throws ExpressionException {
         Expression exp = new Expression("5-5");
@@ -325,7 +325,7 @@ public class ExpressionTest {
      * Vérifie que l'expression <code>-5</code> renvoie dans
      * la liste, un token qui correspond au moins unaire.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeMinusFive() throws ExpressionException {
         Expression exp = new Expression("-5");
@@ -346,7 +346,7 @@ public class ExpressionTest {
      * la liste, un premier token qui correspond au moins binaire,
      * puis un second <code>-</code> qui est un moins unaire.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeFiveMinusMinusFive() throws ExpressionException {
         Expression exp = new Expression("5--5");
@@ -369,7 +369,7 @@ public class ExpressionTest {
      * la liste, un premier token qui correspond au moins binaire,
      * puis tous les autre <code>-</code> sont des moins unaires.
      */
-    @Disabled
+    // @Disabled
     @Test
     void tokenizeFiveMinusMinusMinusFive() throws ExpressionException {
         Expression exp = new Expression("(5)--(-5)");
