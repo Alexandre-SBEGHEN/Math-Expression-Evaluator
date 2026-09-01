@@ -19,6 +19,9 @@ import java.util.ArrayList;
  * l'évaluation de cet arbre.
  */
 public class AbstractSyntaxTree {
+
+    /* ----- Classe ----- */
+
     /**
      * Construit un <i>AST</i> représentant l'expression
      * mathématique.
@@ -29,6 +32,33 @@ public class AbstractSyntaxTree {
     public static AbstractSyntaxTree constructFromTokens(ArrayList<Token> tokens) {
         return null;
     }
+
+    /**
+     * Applique une opération entre un ou deux opérandes.
+     *
+     * @param operation L'opération à effectuer.
+     * @param a Premier opérande.
+     * @param b Second opérande.
+     * @return Résultat de l'opération
+     *
+     * @throws DivisionByZeroException Si l'opération est une division,
+     * et que le diviseur (second opérande) est nul.
+     */
+    public static double applyOperation(Operation operation, double a, double b) {
+        return switch (operation) {
+            case PLUS -> a + b;
+            case MINUS -> a - b;
+            case MINUS_UNARY -> -a;
+            case TIMES -> a * b;
+            case DIV -> {
+                if (b == 0)
+                    throw new DivisionByZeroException(String.format("Tried to divide %f by 0", a));
+                yield a / b;
+            }
+        };
+    }
+
+    /* ----- Instance ----- */
 
     private final Token node;
     private final AbstractSyntaxTree left;
@@ -68,31 +98,6 @@ public class AbstractSyntaxTree {
     public Token getNode() { return node; }
     public AbstractSyntaxTree getLeft() { return left; }
     public AbstractSyntaxTree getRight() { return right; }
-
-    /**
-     * Applique une opération entre un ou deux opérandes.
-     *
-     * @param operation L'opération à effectuer.
-     * @param a Premier opérande.
-     * @param b Second opérande.
-     * @return Résultat de l'opération
-     *
-     * @throws DivisionByZeroException Si l'opération est une division,
-     * et que le diviseur (second opérande) est nul.
-     */
-    public static double applyOperation(Operation operation, double a, double b) {
-        return switch (operation) {
-            case PLUS -> a + b;
-            case MINUS -> a - b;
-            case MINUS_UNARY -> -a;
-            case TIMES -> a * b;
-            case DIV -> {
-                if (b == 0)
-                    throw new DivisionByZeroException(String.format("Tried to divide %f by 0", a));
-                yield a / b;
-            }
-        };
-    }
 
     /**
      * Fonction résursive d'évaluation d'un <i>AST</i>.
