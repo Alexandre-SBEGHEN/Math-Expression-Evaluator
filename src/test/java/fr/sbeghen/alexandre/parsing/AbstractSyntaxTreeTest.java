@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -22,6 +25,117 @@ import static org.junit.jupiter.api.Assertions.*;
  * @see AbstractSyntaxTree
  */
 public class AbstractSyntaxTreeTest {
+
+    /*
+     * -------------------- Tests de constructFromTokens() --------------------
+     */
+
+    /**
+     * Vérifie pour une opération simple, si le bon
+     * arbre est construit.
+     */
+    @Disabled
+    @Test
+    void constructFromTokensSimpleOperation() {
+        // Construction de l'opération '2 + 3'
+        ArrayList<Token> tokens = new ArrayList<>();
+        tokens.add(new Token(TokenType.NUMBER, 2.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 3.0));
+
+        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0)),
+                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+        );
+
+        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+    }
+
+    /**
+     * Vérifie pour une opération intermédiaire,
+     * si le bon arbre est construit.
+     */
+    @Disabled
+    @Test
+    void constructFromTokensIntermediateOperation() {
+        // Construction de l'opération '6 / 2 * (1 + 2)'
+        ArrayList<Token> tokens = new ArrayList<>();
+        tokens.add(new Token(TokenType.NUMBER, 6.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.DIV.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 2.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.TIMES.ordinal()));
+        tokens.add(new Token(TokenType.LEFT, 0.0));
+        tokens.add(new Token(TokenType.NUMBER, 1.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 2.0));
+        tokens.add(new Token(TokenType.LEFT, 0.0));
+
+        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0)),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                ),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0)),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                )
+        );
+
+        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+    }
+
+    /**
+     * Vérifie pour une opération complexe,
+     * si le bon arbre est construit.
+     */
+    @Disabled
+    @Test
+    void constructFromTokensComplexOperation() {
+        // Construction de l'opération '-6 / 4 + 1 --2 * 3'
+        ArrayList<Token> tokens = new ArrayList<>();
+        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 6.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.DIV.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 4.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 1.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 2.0));
+        tokens.add(new Token(TokenType.OPERATION, Operation.TIMES.ordinal()));
+        tokens.add(new Token(TokenType.NUMBER, 3.0));
+
+        // Une infamie sans nom
+        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+                new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new AbstractSyntaxTree(
+                                new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                                new AbstractSyntaxTree(
+                                        new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
+                                ),
+                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
+                        ),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0))
+                ),
+                new AbstractSyntaxTree(
+                        new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
+                        new AbstractSyntaxTree(
+                                new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                        ),
+                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                )
+        );
+
+        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+    }
 
     /*
      * ---------------------- Tests de applyOperation() ------------------------
