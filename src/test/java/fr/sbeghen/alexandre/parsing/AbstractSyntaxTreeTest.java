@@ -1,7 +1,6 @@
 package fr.sbeghen.alexandre.parsing;
 
 import fr.sbeghen.alexandre.exception.DivisionByZeroException;
-import fr.sbeghen.alexandre.tokenization.Expression;
 import fr.sbeghen.alexandre.tokenization.Operation;
 import fr.sbeghen.alexandre.tokenization.Token;
 import fr.sbeghen.alexandre.tokenization.TokenType;
@@ -97,14 +96,14 @@ public class AbstractSyntaxTreeTest {
     void constructFromTokensComplexOperation() {
         // Construction de l'opération '-6 / 4 + 1 --2 * 3'
         ArrayList<Token> tokens = new ArrayList<>();
-        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 6.0));
         tokens.add(new Token(TokenType.OPERATION, Operation.DIV.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 4.0));
         tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 1.0));
         tokens.add(new Token(TokenType.OPERATION, Operation.MINUS.ordinal()));
-        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 2.0));
         tokens.add(new Token(TokenType.OPERATION, Operation.TIMES.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 3.0));
@@ -117,7 +116,7 @@ public class AbstractSyntaxTreeTest {
                         new AbstractSyntaxTree(
                                 new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
                                 new AbstractSyntaxTree(
-                                        new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                        new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
                                         new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
                                 ),
                                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
@@ -127,7 +126,7 @@ public class AbstractSyntaxTreeTest {
                 new AbstractSyntaxTree(
                         new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
                         new AbstractSyntaxTree(
-                                new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
                                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
                         ),
                         new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
@@ -329,7 +328,7 @@ public class AbstractSyntaxTreeTest {
                         new AbstractSyntaxTree(
                                 new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
                                 new AbstractSyntaxTree(
-                                        new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                        new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
                                         new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
                                 ),
                                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
@@ -339,7 +338,7 @@ public class AbstractSyntaxTreeTest {
                 new AbstractSyntaxTree(
                         new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
                         new AbstractSyntaxTree(
-                                new Token(TokenType.OPERATION, Operation.MINUS_UNARY.ordinal()),
+                                new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
                                 new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
                         ),
                         new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
