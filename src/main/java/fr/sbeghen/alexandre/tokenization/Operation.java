@@ -6,7 +6,7 @@ package fr.sbeghen.alexandre.tokenization;
 public enum Operation {
     PLUS('+'),
     MINUS('-'), // Moins binaire (a - b)
-    MINUS_UNARY('-'), // Moins unaire (-a)
+    NEGATE('-'), // Moins unaire (-a)
     TIMES('*'),
     DIV('/');
 

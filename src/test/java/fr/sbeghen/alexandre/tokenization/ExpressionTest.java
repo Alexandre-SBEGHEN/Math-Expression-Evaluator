@@ -1,7 +1,6 @@
 package fr.sbeghen.alexandre.tokenization;
 
 import fr.sbeghen.alexandre.exception.ExpressionException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -331,7 +330,7 @@ public class ExpressionTest {
         Expression exp = new Expression("-5");
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
@@ -354,7 +353,7 @@ public class ExpressionTest {
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
@@ -379,9 +378,9 @@ public class ExpressionTest {
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
         expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS.ordinal()));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.LEFT, 0.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.MINUS_UNARY.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operation.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
 

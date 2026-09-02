@@ -94,7 +94,7 @@ public class Expression {
                 Operation operation = Operation.fromChar(c);
                 if (operation == Operation.MINUS) {
                     if (canUseUnaryMinus.get())
-                        operation = Operation.MINUS_UNARY;
+                        operation = Operation.NEGATE;
                     canUseUnaryMinus.set(true);
                 }
 
