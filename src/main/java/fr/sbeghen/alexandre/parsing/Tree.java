@@ -23,17 +23,6 @@ public class Tree {
     /* ----- Classe ----- */
 
     /**
-     * Construit un <i>AST</i> représentant l'expression
-     * mathématique.
-     *
-     * @param tokens La liste des tokens.
-     * @return L'arbre de l'expression.
-     */
-    public static Tree constructFromTokens(ArrayList<Token> tokens) {
-        return null;
-    }
-
-    /**
      * Applique une opération entre un ou deux opérandes.
      *
      * @param operation L'opération à effectuer.
@@ -44,7 +33,7 @@ public class Tree {
      * @throws DivisionByZeroException Si l'opération est une division,
      * et que le diviseur (second opérande) est nul.
      */
-    public static double applyOperation(Operation operation, double a, double b) {
+    private static double applyOperation(Operation operation, double a, double b) {
         return switch (operation) {
             case PLUS -> a + b;
             case MINUS -> a - b;
