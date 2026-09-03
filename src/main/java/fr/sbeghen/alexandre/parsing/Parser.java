@@ -44,7 +44,7 @@ public class Parser {
      * @return Le token suivant, null s'il n'y en a pas.
      */
     private Token next() {
-        return null;
+        return tokens.removeLast();
     }
 
     /**
@@ -54,6 +54,6 @@ public class Parser {
      * @return Le token suivant, null s'il n'y en a pas.
      */
     private Token peek() {
-        return null;
+        return tokens.getLast();
     }
 }
