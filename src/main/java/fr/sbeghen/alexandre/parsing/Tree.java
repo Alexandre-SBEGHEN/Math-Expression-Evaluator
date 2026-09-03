@@ -1,9 +1,8 @@
 package fr.sbeghen.alexandre.parsing;
 
 import fr.sbeghen.alexandre.exception.DivisionByZeroException;
-import fr.sbeghen.alexandre.tokenization.Operation;
+import fr.sbeghen.alexandre.tokenization.Operator;
 import fr.sbeghen.alexandre.tokenization.Token;
-import java.util.ArrayList;
 
 /**
  * <i>Abstract Syntax Tree</i>.
@@ -25,7 +24,7 @@ public class Tree {
     /**
      * Applique une opération entre un ou deux opérandes.
      *
-     * @param operation L'opération à effectuer.
+     * @param operator L'opération à effectuer.
      * @param a Premier opérande.
      * @param b Second opérande.
      * @return Résultat de l'opération
@@ -33,8 +32,8 @@ public class Tree {
      * @throws DivisionByZeroException Si l'opération est une division,
      * et que le diviseur (second opérande) est nul.
      */
-    private static double applyOperation(Operation operation, double a, double b) {
-        return switch (operation) {
+    private static double applyOperation(Operator operator, double a, double b) {
+        return switch (operator) {
             case PLUS -> a + b;
             case MINUS -> a - b;
             case NEGATE -> -a;
@@ -98,7 +97,7 @@ public class Tree {
 
         double leftVal = (left != null) ? left.evaluate() : 1;
         double rightVal = (right != null) ? right.evaluate() : 1;
-        Operation operation = Operation.values()[(int) node.value()];
-        return applyOperation(operation, leftVal, rightVal);
+        Operator operator = Operator.values()[(int) node.value()];
+        return applyOperation(operator, leftVal, rightVal);
     }
 }

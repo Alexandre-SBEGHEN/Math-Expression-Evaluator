@@ -1,6 +1,6 @@
 package fr.sbeghen.alexandre.parsing;
 
-import fr.sbeghen.alexandre.tokenization.Operation;
+import fr.sbeghen.alexandre.tokenization.Operator;
 import fr.sbeghen.alexandre.tokenization.Token;
 import fr.sbeghen.alexandre.tokenization.TokenType;
 import org.junit.jupiter.api.Disabled;
@@ -22,13 +22,13 @@ public class ParserTest {
         // Construction de l'opération '2 + 3'
         ArrayList<Token> tokens = new ArrayList<>();
         tokens.add(new Token(TokenType.NUMBER, 2.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.PLUS.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 3.0));
 
         Parser parser = new Parser(tokens);
 
         Tree expectedTree = new Tree(
-                new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, 2.0)),
                 new Tree(new Token(TokenType.NUMBER, 3.0))
         );
@@ -46,26 +46,26 @@ public class ParserTest {
         // Construction de l'opération '6 / 2 * (1 + 2)'
         ArrayList<Token> tokens = new ArrayList<>();
         tokens.add(new Token(TokenType.NUMBER, 6.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.DIV.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.DIV.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 2.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.TIMES.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.TIMES.ordinal()));
         tokens.add(new Token(TokenType.LEFT, 0.0));
         tokens.add(new Token(TokenType.NUMBER, 1.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.PLUS.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 2.0));
         tokens.add(new Token(TokenType.LEFT, 0.0));
 
         Parser parser = new Parser(tokens);
 
         Tree expectedTree = new Tree(
-                new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.DIV.ordinal()),
                         new Tree(new Token(TokenType.NUMBER, 6.0)),
                         new Tree(new Token(TokenType.NUMBER, 2.0))
                 ),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
                         new Tree(new Token(TokenType.NUMBER, 1.0)),
                         new Tree(new Token(TokenType.NUMBER, 2.0))
                 )
@@ -83,29 +83,29 @@ public class ParserTest {
     void constructTreeComplexOperation() {
         // Construction de l'opération '-6 / 4 + 1 --2 * 3'
         ArrayList<Token> tokens = new ArrayList<>();
-        tokens.add(new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 6.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.DIV.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.DIV.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 4.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.PLUS.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 1.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.MINUS.ordinal()));
-        tokens.add(new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.MINUS.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 2.0));
-        tokens.add(new Token(TokenType.OPERATION, Operation.TIMES.ordinal()));
+        tokens.add(new Token(TokenType.OPERATION, Operator.TIMES.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 3.0));
 
         Parser parser = new Parser(tokens);
 
         // Une infamie sans nom
         Tree expectedTree = new Tree(
-                new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
+                new Token(TokenType.OPERATION, Operator.MINUS.ordinal()),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                                new Token(TokenType.OPERATION, Operator.DIV.ordinal()),
                                 new Tree(
-                                        new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
+                                        new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
                                         new Tree(new Token(TokenType.NUMBER, 6.0))
                                 ),
                                 new Tree(new Token(TokenType.NUMBER, 4.0))
@@ -113,9 +113,9 @@ public class ParserTest {
                         new Tree(new Token(TokenType.NUMBER, 1.0))
                 ),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.TIMES.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
+                                new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
                                 new Tree(new Token(TokenType.NUMBER, 2.0))
                         ),
                         new Tree(new Token(TokenType.NUMBER, 3.0))

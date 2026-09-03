@@ -91,14 +91,14 @@ public class Expression {
             // Opération
             boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
             if (isOperation) {
-                Operation operation = Operation.fromChar(c);
-                if (operation == Operation.MINUS) {
+                Operator operator = Operator.fromChar(c);
+                if (operator == Operator.MINUS) {
                     if (canUseUnaryMinus.get())
-                        operation = Operation.NEGATE;
+                        operator = Operator.NEGATE;
                     canUseUnaryMinus.set(true);
                 }
 
-                tokens.add(new Token(TokenType.OPERATION, operation.ordinal()));
+                tokens.add(new Token(TokenType.OPERATION, operator.ordinal()));
                 continue;
             }
 
