@@ -89,8 +89,8 @@ public class Expression {
             }
 
             // Opération
-            boolean isOperation = TokenType.OPERATION.characters.indexOf(c) != -1;
-            if (isOperation) {
+            boolean isOperator = TokenType.OPERATOR.characters.indexOf(c) != -1;
+            if (isOperator) {
                 Operator operator = Operator.fromChar(c);
                 if (operator == Operator.MINUS) {
                     if (canUseUnaryMinus.get())
@@ -98,7 +98,7 @@ public class Expression {
                     canUseUnaryMinus.set(true);
                 }
 
-                tokens.add(new Token(TokenType.OPERATION, operator.ordinal()));
+                tokens.add(new Token(TokenType.OPERATOR, operator.ordinal()));
                 continue;
             }
 

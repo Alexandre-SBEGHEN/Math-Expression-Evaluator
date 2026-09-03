@@ -258,9 +258,9 @@ public class ExpressionTest {
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 4.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.PLUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.PLUS.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.TIMES.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.TIMES.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 3.0));
 
         assertArrayEquals(
@@ -281,12 +281,12 @@ public class ExpressionTest {
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 6.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.DIV.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.DIV.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.TIMES.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.TIMES.ordinal()));
         expectedTokens.add(new Token(TokenType.LEFT, 0.0));
         expectedTokens.add(new Token(TokenType.NUMBER, 1.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.PLUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.PLUS.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 2.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
 
@@ -310,7 +310,7 @@ public class ExpressionTest {
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.MINUS.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
@@ -330,7 +330,7 @@ public class ExpressionTest {
         Expression exp = new Expression("-5");
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.NEGATE.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
@@ -352,8 +352,8 @@ public class ExpressionTest {
 
         ArrayList<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.MINUS.ordinal()));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.NEGATE.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
 
         assertArrayEquals(
@@ -377,10 +377,10 @@ public class ExpressionTest {
         expectedTokens.add(new Token(TokenType.LEFT, 0.0));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.MINUS.ordinal()));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.NEGATE.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.MINUS.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.LEFT, 0.0));
-        expectedTokens.add(new Token(TokenType.OPERATION, (double) Operator.NEGATE.ordinal()));
+        expectedTokens.add(new Token(TokenType.OPERATOR, (double) Operator.NEGATE.ordinal()));
         expectedTokens.add(new Token(TokenType.NUMBER, 5.0));
         expectedTokens.add(new Token(TokenType.RIGHT, 0.0));
 

@@ -8,7 +8,7 @@ package fr.sbeghen.alexandre.tokenization;
 public enum TokenType {
     LEFT("("),
     RIGHT(")"),
-    OPERATION("+-*/"),
+    OPERATOR("+-*/"),
     NUMBER("0123456789.");
 
     public final String characters;
