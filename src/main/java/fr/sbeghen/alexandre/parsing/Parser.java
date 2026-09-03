@@ -43,7 +43,7 @@ public class Parser {
      *
      * @return Le token suivant, null s'il n'y en a pas.
      */
-    public Token next() {
+    private Token next() {
         return null;
     }
 
@@ -53,7 +53,7 @@ public class Parser {
      *
      * @return Le token suivant, null s'il n'y en a pas.
      */
-    public Token peek() {
+    private Token peek() {
         return null;
     }
 }
