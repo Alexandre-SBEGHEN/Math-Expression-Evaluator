@@ -21,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * telles que les guetters, setters, toString, etc. Seulement les
  * implémentations propres au programme.
  *
- * @see AbstractSyntaxTree
+ * @see Tree
  */
-public class AbstractSyntaxTreeTest {
+public class TreeTest {
 
     /*
      * -------------------- Tests de constructFromTokens() --------------------
@@ -42,13 +42,13 @@ public class AbstractSyntaxTreeTest {
         tokens.add(new Token(TokenType.OPERATION, Operation.PLUS.ordinal()));
         tokens.add(new Token(TokenType.NUMBER, 3.0));
 
-        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+        Tree expectedAst = new Tree(
                 new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0)),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                new Tree(new Token(TokenType.NUMBER, 2.0)),
+                new Tree(new Token(TokenType.NUMBER, 3.0))
         );
 
-        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+        assertEquals(expectedAst, Tree.constructFromTokens(tokens));
     }
 
     /**
@@ -70,21 +70,21 @@ public class AbstractSyntaxTreeTest {
         tokens.add(new Token(TokenType.NUMBER, 2.0));
         tokens.add(new Token(TokenType.LEFT, 0.0));
 
-        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+        Tree expectedAst = new Tree(
                 new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0)),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                        new Tree(new Token(TokenType.NUMBER, 6.0)),
+                        new Tree(new Token(TokenType.NUMBER, 2.0))
                 ),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0)),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                        new Tree(new Token(TokenType.NUMBER, 1.0)),
+                        new Tree(new Token(TokenType.NUMBER, 2.0))
                 )
         );
 
-        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+        assertEquals(expectedAst, Tree.constructFromTokens(tokens));
     }
 
     /**
@@ -109,31 +109,31 @@ public class AbstractSyntaxTreeTest {
         tokens.add(new Token(TokenType.NUMBER, 3.0));
 
         // Une infamie sans nom
-        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+        Tree expectedAst = new Tree(
                 new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
-                        new AbstractSyntaxTree(
+                        new Tree(
                                 new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
-                                new AbstractSyntaxTree(
+                                new Tree(
                                         new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
-                                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
+                                        new Tree(new Token(TokenType.NUMBER, 6.0))
                                 ),
-                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
+                                new Tree(new Token(TokenType.NUMBER, 4.0))
                         ),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0))
+                        new Tree(new Token(TokenType.NUMBER, 1.0))
                 ),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
-                        new AbstractSyntaxTree(
+                        new Tree(
                                 new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
-                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                                new Tree(new Token(TokenType.NUMBER, 2.0))
                         ),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                        new Tree(new Token(TokenType.NUMBER, 3.0))
                 )
         );
 
-        assertEquals(expectedAst, AbstractSyntaxTree.constructFromTokens(tokens));
+        assertEquals(expectedAst, Tree.constructFromTokens(tokens));
     }
 
     /*
@@ -156,7 +156,7 @@ public class AbstractSyntaxTreeTest {
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void applyOperationDivisionByZero(double dividend) {
         assertThrows(
-                DivisionByZeroException.class, () -> AbstractSyntaxTree.applyOperation(Operation.DIV, dividend, 0),
+                DivisionByZeroException.class, () -> Tree.applyOperation(Operation.DIV, dividend, 0),
                 String.format("Failed with %f", dividend)
         );
     }
@@ -178,7 +178,7 @@ public class AbstractSyntaxTreeTest {
     })
     void applyOperationDivisionNotByZero(double dividend, double divisor) {
         assertDoesNotThrow(
-                () -> AbstractSyntaxTree.applyOperation(Operation.DIV, dividend, divisor),
+                () -> Tree.applyOperation(Operation.DIV, dividend, divisor),
                 String.format("Failed with %f / divisor", dividend)
         );
     }
@@ -204,7 +204,7 @@ public class AbstractSyntaxTreeTest {
     })
     void applyOperationTest(double a, Operation operation, double b, double expectedResult) {
         assertEquals(
-                expectedResult, AbstractSyntaxTree.applyOperation(operation, a, b),
+                expectedResult, Tree.applyOperation(operation, a, b),
                 String.format("Failed with %f %c %f", a, operation.character, b)
         );
     }
@@ -228,10 +228,10 @@ public class AbstractSyntaxTreeTest {
     @ParameterizedTest
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void evaluateDivisionByZero(double dividend) {
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+        Tree ast = new Tree(
                 new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 0.0))
+                new Tree(new Token(TokenType.NUMBER, dividend)),
+                new Tree(new Token(TokenType.NUMBER, 0.0))
         );
         assertThrows(
                 DivisionByZeroException.class, ast::evaluate,
@@ -255,10 +255,10 @@ public class AbstractSyntaxTreeTest {
             "10.0, 2.0"
     })
     void evaluateDivisionNotByZero(double dividend, double divisor) {
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+        Tree ast = new Tree(
                 new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, dividend)),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, divisor))
+                new Tree(new Token(TokenType.NUMBER, dividend)),
+                new Tree(new Token(TokenType.NUMBER, divisor))
         );
         assertDoesNotThrow(ast::evaluate, String.format("Failed with %f / %f", dividend, divisor));
     }
@@ -283,13 +283,13 @@ public class AbstractSyntaxTreeTest {
     // @Disabled
     @Test
     void evaluateSimpleAst() {
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(
+        Tree ast = new Tree(
                 new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
-                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0)),
-                new AbstractSyntaxTree(
+                new Tree(new Token(TokenType.NUMBER, 4.0)),
+                new Tree(
                         new Token(TokenType.OPERATION, (double) Operation.TIMES.ordinal()),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0)),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                        new Tree(new Token(TokenType.NUMBER, 2.0)),
+                        new Tree(new Token(TokenType.NUMBER, 3.0))
                 )
         );
         assertEquals(10, ast.evaluate());
@@ -321,30 +321,29 @@ public class AbstractSyntaxTreeTest {
     // @Disabled
     @Test
     void evaluateComplexAst() {
-        AbstractSyntaxTree expectedAst = new AbstractSyntaxTree(
+        Tree expectedAst = new Tree(
                 new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
-                        new AbstractSyntaxTree(
+                        new Tree(
                                 new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
-                                new AbstractSyntaxTree(
+                                new Tree(
                                         new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
-                                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 6.0))
+                                        new Tree(new Token(TokenType.NUMBER, 6.0))
                                 ),
-                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 4.0))
+                                new Tree(new Token(TokenType.NUMBER, 4.0))
                         ),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 1.0))
+                        new Tree(new Token(TokenType.NUMBER, 1.0))
                 ),
-                new AbstractSyntaxTree(
+                new Tree(
                         new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
-                        new AbstractSyntaxTree(
+                        new Tree(
                                 new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
-                                new AbstractSyntaxTree(new Token(TokenType.NUMBER, 2.0))
+                                new Tree(new Token(TokenType.NUMBER, 2.0))
                         ),
-                        new AbstractSyntaxTree(new Token(TokenType.NUMBER, 3.0))
+                        new Tree(new Token(TokenType.NUMBER, 3.0))
                 )
         );
         assertEquals(5.5, expectedAst.evaluate());
     }
-
 }

@@ -33,7 +33,7 @@ public class Parser {
      *
      * @return L'arbre de l'expression.
      */
-    public AbstractSyntaxTree constructTree() {
+    public Tree constructTree() {
         return null;
     }
 
