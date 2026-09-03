@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Contient également les méthodes permettant
  * l'évaluation de cet arbre.
  */
-public class AbstractSyntaxTree {
+public class Tree {
 
     /* ----- Classe ----- */
 
@@ -29,7 +29,7 @@ public class AbstractSyntaxTree {
      * @param tokens La liste des tokens.
      * @return L'arbre de l'expression.
      */
-    public static AbstractSyntaxTree constructFromTokens(ArrayList<Token> tokens) {
+    public static Tree constructFromTokens(ArrayList<Token> tokens) {
         return null;
     }
 
@@ -61,15 +61,15 @@ public class AbstractSyntaxTree {
     /* ----- Instance ----- */
 
     private final Token node;
-    private final AbstractSyntaxTree left;
-    private final AbstractSyntaxTree right;
+    private final Tree left;
+    private final Tree right;
 
     /**
      * Premier constructeur de l'<i>AST</i>.
      * <p>
      * Il possède une racine ainsi que <strong>deux</strong> enfants gauche et droit.
      */
-    public AbstractSyntaxTree(Token node, AbstractSyntaxTree left, AbstractSyntaxTree right) {
+    public Tree(Token node, Tree left, Tree right) {
         this.node = node;
         this.left = left;
         this.right = right;
@@ -79,7 +79,7 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine ainsi qu'<strong>un seul</strong> enfant qui est le gauche.
      */
-    public AbstractSyntaxTree(Token node, AbstractSyntaxTree left) {
+    public Tree(Token node, Tree left) {
         this.node = node;
         this.left = left;
         right = null;
@@ -89,15 +89,15 @@ public class AbstractSyntaxTree {
      * <p>
      * Il possède une racine et <strong>aucun</strong> enfant.
      */
-    public AbstractSyntaxTree(Token node) {
+    public Tree(Token node) {
         this.node = node;
         left = null;
         right = null;
     }
 
     public Token getNode() { return node; }
-    public AbstractSyntaxTree getLeft() { return left; }
-    public AbstractSyntaxTree getRight() { return right; }
+    public Tree getLeft() { return left; }
+    public Tree getRight() { return right; }
 
     /**
      * Fonction résursive d'évaluation d'un <i>AST</i>.
