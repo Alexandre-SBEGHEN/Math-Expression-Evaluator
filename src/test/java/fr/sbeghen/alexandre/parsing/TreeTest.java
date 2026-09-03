@@ -42,7 +42,7 @@ public class TreeTest {
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void evaluateDivisionByZero(double dividend) {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operator.DIV.ordinal()),
+                new Token(TokenType.OPERATOR, (double) Operator.DIV.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, dividend)),
                 new Tree(new Token(TokenType.NUMBER, 0.0))
         );
@@ -69,7 +69,7 @@ public class TreeTest {
     })
     void evaluateDivisionNotByZero(double dividend, double divisor) {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operator.DIV.ordinal()),
+                new Token(TokenType.OPERATOR, (double) Operator.DIV.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, dividend)),
                 new Tree(new Token(TokenType.NUMBER, divisor))
         );
@@ -97,10 +97,10 @@ public class TreeTest {
     @Test
     void evaluateSimpleAst() {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operator.PLUS.ordinal()),
+                new Token(TokenType.OPERATOR, (double) Operator.PLUS.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, 4.0)),
                 new Tree(
-                        new Token(TokenType.OPERATION, (double) Operator.TIMES.ordinal()),
+                        new Token(TokenType.OPERATOR, (double) Operator.TIMES.ordinal()),
                         new Tree(new Token(TokenType.NUMBER, 2.0)),
                         new Tree(new Token(TokenType.NUMBER, 3.0))
                 )
@@ -135,13 +135,13 @@ public class TreeTest {
     @Test
     void evaluateComplexAst() {
         Tree expectedAst = new Tree(
-                new Token(TokenType.OPERATION, Operator.MINUS.ordinal()),
+                new Token(TokenType.OPERATOR, Operator.MINUS.ordinal()),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
+                        new Token(TokenType.OPERATOR, Operator.PLUS.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operator.DIV.ordinal()),
+                                new Token(TokenType.OPERATOR, Operator.DIV.ordinal()),
                                 new Tree(
-                                        new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
+                                        new Token(TokenType.OPERATOR, Operator.NEGATE.ordinal()),
                                         new Tree(new Token(TokenType.NUMBER, 6.0))
                                 ),
                                 new Tree(new Token(TokenType.NUMBER, 4.0))
@@ -149,9 +149,9 @@ public class TreeTest {
                         new Tree(new Token(TokenType.NUMBER, 1.0))
                 ),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operator.TIMES.ordinal()),
+                        new Token(TokenType.OPERATOR, Operator.TIMES.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
+                                new Token(TokenType.OPERATOR, Operator.NEGATE.ordinal()),
                                 new Tree(new Token(TokenType.NUMBER, 2.0))
                         ),
                         new Tree(new Token(TokenType.NUMBER, 3.0))
