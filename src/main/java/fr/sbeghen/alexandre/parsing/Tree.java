@@ -95,10 +95,6 @@ public class Tree {
         right = null;
     }
 
-    public Token getNode() { return node; }
-    public Tree getLeft() { return left; }
-    public Tree getRight() { return right; }
-
     /**
      * Fonction résursive d'évaluation d'un <i>AST</i>.
      *
