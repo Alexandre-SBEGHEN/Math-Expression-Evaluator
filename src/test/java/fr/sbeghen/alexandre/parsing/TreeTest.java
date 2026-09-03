@@ -1,16 +1,13 @@
 package fr.sbeghen.alexandre.parsing;
 
 import fr.sbeghen.alexandre.exception.DivisionByZeroException;
-import fr.sbeghen.alexandre.tokenization.Operation;
+import fr.sbeghen.alexandre.tokenization.Operator;
 import fr.sbeghen.alexandre.tokenization.Token;
 import fr.sbeghen.alexandre.tokenization.TokenType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,7 +42,7 @@ public class TreeTest {
     @ValueSource(doubles = {0.0, 1.0, 6.7})
     void evaluateDivisionByZero(double dividend) {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
+                new Token(TokenType.OPERATION, (double) Operator.DIV.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, dividend)),
                 new Tree(new Token(TokenType.NUMBER, 0.0))
         );
@@ -72,7 +69,7 @@ public class TreeTest {
     })
     void evaluateDivisionNotByZero(double dividend, double divisor) {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operation.DIV.ordinal()),
+                new Token(TokenType.OPERATION, (double) Operator.DIV.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, dividend)),
                 new Tree(new Token(TokenType.NUMBER, divisor))
         );
@@ -100,10 +97,10 @@ public class TreeTest {
     @Test
     void evaluateSimpleAst() {
         Tree ast = new Tree(
-                new Token(TokenType.OPERATION, (double) Operation.PLUS.ordinal()),
+                new Token(TokenType.OPERATION, (double) Operator.PLUS.ordinal()),
                 new Tree(new Token(TokenType.NUMBER, 4.0)),
                 new Tree(
-                        new Token(TokenType.OPERATION, (double) Operation.TIMES.ordinal()),
+                        new Token(TokenType.OPERATION, (double) Operator.TIMES.ordinal()),
                         new Tree(new Token(TokenType.NUMBER, 2.0)),
                         new Tree(new Token(TokenType.NUMBER, 3.0))
                 )
@@ -138,13 +135,13 @@ public class TreeTest {
     @Test
     void evaluateComplexAst() {
         Tree expectedAst = new Tree(
-                new Token(TokenType.OPERATION, Operation.MINUS.ordinal()),
+                new Token(TokenType.OPERATION, Operator.MINUS.ordinal()),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.PLUS.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.PLUS.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operation.DIV.ordinal()),
+                                new Token(TokenType.OPERATION, Operator.DIV.ordinal()),
                                 new Tree(
-                                        new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
+                                        new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
                                         new Tree(new Token(TokenType.NUMBER, 6.0))
                                 ),
                                 new Tree(new Token(TokenType.NUMBER, 4.0))
@@ -152,9 +149,9 @@ public class TreeTest {
                         new Tree(new Token(TokenType.NUMBER, 1.0))
                 ),
                 new Tree(
-                        new Token(TokenType.OPERATION, Operation.TIMES.ordinal()),
+                        new Token(TokenType.OPERATION, Operator.TIMES.ordinal()),
                         new Tree(
-                                new Token(TokenType.OPERATION, Operation.NEGATE.ordinal()),
+                                new Token(TokenType.OPERATION, Operator.NEGATE.ordinal()),
                                 new Tree(new Token(TokenType.NUMBER, 2.0))
                         ),
                         new Tree(new Token(TokenType.NUMBER, 3.0))

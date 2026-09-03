@@ -3,9 +3,9 @@ package fr.sbeghen.alexandre.tokenization;
 import fr.sbeghen.alexandre.parsing.BindingPower;
 
 /**
- * Représente les opérations arithmétiques supportées par l'évaluateur.
+ * Représente les opérateurs arithmétiques supportées par l'évaluateur.
  */
-public enum Operation {
+public enum Operator {
     PLUS('+'),
     MINUS('-'), // Moins binaire (a - b)
     NEGATE('-'), // Moins unaire (-a)
@@ -13,10 +13,10 @@ public enum Operation {
     DIV('/');
 
     public final char character;
-    Operation(char character) { this.character = character; }
+    Operator(char character) { this.character = character; }
 
     /**
-     * Génère le <i>binding power</i> de l'opération.
+     * Génère le <i>binding power</i> de l'opérateur.
      *
      * @return Record du binding power.
      *
@@ -34,7 +34,7 @@ public enum Operation {
 
     /**
      * Permet d'obtenir la valeur de l'enum associé au
-     * caractère d'une opération.
+     * caractère de l'opérateur.
      * <p>
      * <strong>Note :</strong> Etant donné que le caractère '-'
      * correspond à deux opérations à la fois (moins unaire / moins binaire),
@@ -46,8 +46,8 @@ public enum Operation {
      *
      * @throws IllegalArgumentException Si un caractère invalide est entré.
      */
-    public static Operation fromChar(char opChar) {
-        for (Operation op: values())
+    public static Operator fromChar(char opChar) {
+        for (Operator op: values())
             if (op.character == opChar)
                 return op;
         throw new IllegalArgumentException(String.format("Invalid operator : '%c'", opChar));

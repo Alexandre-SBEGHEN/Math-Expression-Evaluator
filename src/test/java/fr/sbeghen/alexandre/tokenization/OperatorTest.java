@@ -6,15 +6,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Classe de test de Operation.
+ * Classe de test de Operator.
  * <p>
  * <strong>Note :</strong> ne prend pas en compte les méthodes triviales
  * telles que values, ordinal, etc. Seulement les
  * implémentations propres au programme.
  *
- * @see Operation
+ * @see Operator
  */
-public class OperationTest {
+public class OperatorTest {
 
     /**
      * Vérifie qu'une exception IllegalArgumentException
@@ -27,7 +27,7 @@ public class OperationTest {
     @ParameterizedTest
     @ValueSource(chars = {'a', '@', '=', '°'})
     void fromCharInvalid(char opChar) {
-        assertThrows(IllegalArgumentException.class, () -> Operation.fromChar(opChar));
+        assertThrows(IllegalArgumentException.class, () -> Operator.fromChar(opChar));
     }
 
     /**
@@ -47,8 +47,8 @@ public class OperationTest {
             "*, TIMES",
             "/, DIV"
     })
-    void fromCharValid(char opChar, Operation expectedOp) {
-        assertDoesNotThrow(() -> Operation.fromChar(opChar));
-        assertEquals(expectedOp, Operation.fromChar(opChar));
+    void fromCharValid(char opChar, Operator expectedOp) {
+        assertDoesNotThrow(() -> Operator.fromChar(opChar));
+        assertEquals(expectedOp, Operator.fromChar(opChar));
     }
 }
